@@ -101,7 +101,7 @@
 		</action>
 		<action name="add_module" class="com.action.moduleAction"
 			method="add_module">
-			<result name="success">module_index.jsp</result>
+			<result name="success">add_module.jsp</result>
 			<result name="error">/jsp/module_error.jsp</result>
 		</action>
 	</package>

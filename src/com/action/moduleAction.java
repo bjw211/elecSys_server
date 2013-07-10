@@ -5,12 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.Dao.Device;
+import com.Dao.DeviceDAO;
 import com.Dao.Module;
 import com.Dao.ModuleDAO;
-import com.Dao.Worker;
 import com.db.HibernateSessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class moduleAction extends ActionSupport{
 	
@@ -19,6 +19,8 @@ public class moduleAction extends ActionSupport{
 	private String mname;
 	private Module mn;
 	private ModuleDAO dao = new ModuleDAO();
+	private DeviceDAO ddao = new DeviceDAO();
+	private List<Device> dList;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 	
@@ -48,6 +50,12 @@ public class moduleAction extends ActionSupport{
 		this.moduleList = moduleList;
 	}
 	
+	public List<Device> getdList() {
+		return dList;
+	}
+	public void setdList(List<Device> dList) {
+		this.dList = dList;
+	}
 	public String list_module(){
 		moduleList = dao.findAll();
 		return SUCCESS;
@@ -74,10 +82,7 @@ public class moduleAction extends ActionSupport{
 	}
 	
 	public String add_module(){
-		dao.save(mn);
-		tx.commit();
-		moduleList = dao.findAll();
-		session.close();
+		dList = ddao.findAll();
 		return SUCCESS;
 	}
 	
