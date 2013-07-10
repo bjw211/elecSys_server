@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.enable.DynamicMethodInvocation"  value="true"/>
+
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="checkLogin" class="com.action.AdminLMAction"
+			method="checkLogin">
+			<result name="success">index.html</result>
+			<result name="error">/jsp/login_error.jsp</result>
+		</action>
+		<action name="modify" class="com.action.AdminLMAction"
+			method="modify">
+			<result name="success">/jsp/modify_success.jsp</result>
+			<result name="error">/jsp/modify_error.jsp</result>
+		</action>
+		<action name="find_worker" class="com.action.workerAction"
+			method="find_worker">
+			<result name="success">/jsp/worker_index.jsp</result>
+		</action>
+		<action name="list_worker" class="com.action.workerAction"
+			method="list_worker">
+			<result name="success">worker_index.jsp</result>
+			<result name="error">/jsp/worker_error.jsp</result>
+		</action>
+		<action name="add_worker" class="com.action.workerAction"
+			method="add_worker">
+			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="error">/jsp/worker_error.jsp</result>
+		</action>
+		<action name="delete_worker" class="com.action.workerAction"
+			method="delete_worker">
+			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="error">/jsp/worker_error.jsp</result>
+		</action>
+		<action name="modify_worker" class="com.action.workerAction"
+			method="modify_worker">
+			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="error">/jsp/worker_error.jsp</result>
+		</action>
+		<action name="list_fault" class="com.action.faultAction"
+			method="list_fault">
+			<result name="success">/jsp/fault_index.jsp</result>
+			<result name="error">/jsp/worker_error.jsp</result>
+		</action>
+		<action name="find_fault" class="com.action.faultAction"
+			method="find_fault">
+			<result name="success">/jsp/fault_index.jsp</result>
+			<result name="error">/jsp/fault_error.jsp</result>
+		</action>
+		<action name="list_device" class="com.action.deviceAction"
+			method="list_device">
+			<result name="success">/jsp/device_index.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		<action name="find_device" class="com.action.deviceAction"
+			method="find_device">
+			<result name="success">/jsp/device_index.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		<action name="delete_device" class="com.action.deviceAction"
+			method="delete_device">
+			<result name="success">/jsp/device_index.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		<action name="add_device" class="com.action.deviceAction"
+			method="add_device">
+			<result name="success">/jsp/device_index.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		<action name="modify_device" class="com.action.deviceAction"
+			method="modify_device">
+			<result name="success">/jsp/module_index.jsp</result>
+			<result name="error">/jsp/module_error.jsp</result>
+		</action>
+		<action name="list_module" class="com.action.moduleAction"
+			method="list_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">jsp/module_error.jsp</result>
+		</action>
+		<action name="find_module" class="com.action.moduleAction"
+			method="find_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">/jsp/module_error.jsp</result>
+		</action>
+		<action name="delete_module" class="com.action.moduleAction"
+			method="delete_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">/jsp/module_error.jsp</result>
+		</action>
+		<action name="modify_module" class="com.action.moduleAction"
+			method="modify_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">/jsp/module_error.jsp</result>
+		</action>
+		<action name="add_module" class="com.action.moduleAction"
+			method="add_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">/jsp/module_error.jsp</result>
+		</action>
+	</package>
+	<!-- Add packages here -->
+	
+	<package name="mobile" namespace="/mobile" extends="json-default">
+		<action name="Login" class="com.control.Action.loginAction" method="Login">
+			<result type="json"/>
+		</action>
+		
+	</package>
+	
+</struts>
