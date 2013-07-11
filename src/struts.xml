@@ -59,6 +59,10 @@
 			<result name="success">device_index.jsp</result>
 			<result name="error">/jsp/device_error.jsp</result>
 		</action>
+		
+		
+		
+		
 		<action name="find_device" class="com.action.deviceAction"
 			method="find_device">
 			<result name="success">device_index.jsp</result>
@@ -81,6 +85,30 @@
 		</action>
 		<action name="list_module" class="com.action.moduleAction"
 			method="list_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">jsp/module_error.jsp</result>
+		</action>
+		
+		<action name="list" class="com.action.deviceAction"
+			method="list">
+			<result name="success">device_select.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		
+		<action name="list2" class="com.action.moduleAction"
+			method="list2">
+			<result name="success">module_select.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		
+		<action name="getDeviceElement" class="com.action.deviceAction"
+			method="getDeviceElement">
+			<result name="success">jsp/success.jsp</result>
+			<result name="error">/jsp/device_error.jsp</result>
+		</action>
+		
+		<action name="getModuleElement" class="com.action.moduleAction"
+			method="getModuleElement">
 			<result name="success">module_index.jsp</result>
 			<result name="error">jsp/module_error.jsp</result>
 		</action>
@@ -129,26 +157,6 @@
 		</action>
 		
 		<action name="Acquire" class="com.control.Action.acquireTaskAction" method="Acquire">
-			<result type="json"/>
-		</action>
-		
-		<action name="getTask" class="com.control.Action.detailedTaskAction" method="getTask">
-			<result type="json"/>
-		</action>
-		
-		<action name="getDevice" class="com.control.Action.acquireDeviceAction" method="getDevice">
-			<result type="json"/>
-		</action>
-		
-		<action name="getFault" class="com.control.Action.acquireFaultAction" method="getFault">
-			<result type="json"/>
-		</action>
-		
-		<action name="writeFault" class="com.control.Action.receiveFaultAction" method="writeFault">
-			<result type="json"/>
-		</action>
-		
-		<action name="writeResult" class="com.control.Action.receiveResultAction" method="writeResult">
 			<result type="json"/>
 		</action>
 		

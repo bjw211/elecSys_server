@@ -5,12 +5,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN ，">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>设备管理</title>
+    <title></title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,59 +23,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
+  <script type="text/javascript">
+   function chk(){
+     var aa=document.getElementsByName("pro")
+     for(i=0;i<aa.length;i++){
+        if(document.getElementById("all").checked==true)
+		{
+			aa[i].checked=true;           
+			}
+		else
+		{
+        	aa[i].checked=false;
+			}
+     }
+   }
+  </script>
   
   <body>
-    <div >
-    
-		<div style="height: 50px">
-			<h1 align="center">请添加设备：</h1>
-		</div>
-
-	<table align="center" border="1" cellspacing="0" width="80%" cellpadding="0"> 
-
-		<tr bgcolor=#99CC33 class="text" >
-			<td valign="top" align="center">设备号</td> 
-			<td valign="top" align="center">设备名称</td> 
-			<td valign="top" align="center">设备类型</td> 
-			<td valign="top" align="center">设备安放地址</td>
-			<td valign="top" align="center">二维码</td>
-			<td valign="top" align="center">检查项目</td>
-		</tr>
-		<s:if test="dList.size()>0">
-		<s:iterator value="dList" var="dl">
-		<tr>
-			<td width="8%"  valign="top" align="center" class="text">
-				<s:property value="#dl.did" />
-			</td>
-			 
-			<td width="10%"  valign="top" align="center" class="text"> 
-				<s:property value="#dl.dname" />
-			</td>
-
-			<td width="10%"  valign="top" align="center" class="text"> 
-				<s:property value="#dl.type" />
-			</td>
-
-			<td width="10%"  valign="top" align="center" class="text"> 
-				<s:property value="#dl.address" />
-			</td>
-			
-			<td width="10%"  valign="top" align="center" class="text"> 
-				<s:property value="#dl.qr" />
-			</td>
-			
-			<td width="9%"  valign="top" align="center" class="text">
-				<s:property value="#dl.checkItem" />
-			</td>
-		</tr>
-		</s:iterator>
-		</s:if>
-		<s:else><tr><td colspan="6" align="center">没有设备.</td></tr></s:else>
+	
+	<div align="center">
+	
+  	<s:form action="getDeviceElement">
+		 
+		 <input type="submit" value="提交" />
+		 
+		 <table align="center" border="1" cellspacing="0" width="10%" cellpadding="0"> 
+		 <s:if test="deviceList.size()>0">
+		 <p><input type="checkbox" id="all" onclick="chk()" />全选</p>
+		 <s:iterator value="deviceList" var="d">
+			<p><input type="checkbox" name="pro" value="<s:property value="#d.did"/>"/>
+				<s:property value="#d.dname" />
+				<br>
+			</p>
+		 </s:iterator>
+		 </s:if>
+		 <s:else>
+		 <tr>
+		 <td colspan="1" align="center">nothing</td>
+		 </tr></s:else>
 	</table>
-
-	</div>
-
+		 
+		</s:form>
+</div>
+		
   </body>
-
-  
 </html>
