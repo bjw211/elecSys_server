@@ -91,10 +91,11 @@ public class detailedTaskAction extends ActionSupport implements
 				s = devices.split("@");
 				for (int i = 1; i < s.length; i++) {
 					Map<String, String> d = new HashMap<String, String>();
-					String did = s[i].substring(0, 3);
+					String did = s[i].substring(0, 3);					
 					d.put("did", did);
-					d.put("dname", ddao.findById(did).getDname());
+					d.put("dname", "\""+ddao.findById(did).getDname()+"\"");					
 					d.put("address", ddao.findById(did).getAddress());
+					d.put("type", ddao.findById(did).getType());
 					devicelite.add(d);
 				}
 				json.put("devicelites", devicelite.toString());

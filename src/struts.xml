@@ -144,6 +144,14 @@
 			<result type="json"/>
 		</action>
 		
+		<action name="writeFault" class="com.control.Action.receiveFaultAction" method="writeFault">
+			<result type="json"/>
+		</action>
+		
+		<action name="writeResult" class="com.control.Action.receiveResultAction" method="writeResult">
+			<result type="json"/>
+		</action>
+		
 	</package>
 	
 </struts>
