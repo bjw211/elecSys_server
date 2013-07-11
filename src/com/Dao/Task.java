@@ -12,7 +12,9 @@ public class Task implements java.io.Serializable {
 
 	private String tid;
 	private Worker worker;
+	private String tname;
 	private Date stime;
+	private Date deadline;
 	private Date etime;
 	private String state;
 	private String devices;
@@ -30,11 +32,13 @@ public class Task implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Task(String tid, Worker worker, Date stime, Date etime,
-			String state, String devices) {
+	public Task(String tid, Worker worker, String tname, Date stime,
+			Date deadline, Date etime, String state, String devices) {
 		this.tid = tid;
 		this.worker = worker;
+		this.tname = tname;
 		this.stime = stime;
+		this.deadline = deadline;
 		this.etime = etime;
 		this.state = state;
 		this.devices = devices;
@@ -58,12 +62,28 @@ public class Task implements java.io.Serializable {
 		this.worker = worker;
 	}
 
+	public String getTname() {
+		return this.tname;
+	}
+
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+
 	public Date getStime() {
 		return this.stime;
 	}
 
 	public void setStime(Date stime) {
 		this.stime = stime;
+	}
+
+	public Date getDeadline() {
+		return this.deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
 	}
 
 	public Date getEtime() {

@@ -13,8 +13,14 @@
         <many-to-one name="worker" class="com.Dao.Worker" fetch="select">
             <column name="worker_wid" length="15" not-null="true" />
         </many-to-one>
+        <property name="tname" type="java.lang.String">
+            <column name="tname" length="45" />
+        </property>
         <property name="stime" type="java.util.Date">
             <column name="stime" length="10" />
+        </property>
+        <property name="deadline" type="java.util.Date">
+            <column name="deadline" length="10" />
         </property>
         <property name="etime" type="java.util.Date">
             <column name="etime" length="10" />

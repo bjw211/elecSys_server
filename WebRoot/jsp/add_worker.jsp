@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1 align="center">登记工人信息</h1>
 		</div>
 	
-	<form action="add_worker" method="post" onsubmit="return check(this);">
+	<form action="add_worker" method="post">
 	
 	<table align="center" border="1" cellspacing="0" width="20%" cellpadding="0"> 
 

@@ -28,9 +28,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div >
     
 		<div style="height: 50px">
-			<h1 align="center">请选择设备：</h1>
+			<h1 align="center">请添加设备：</h1>
 		</div>
-		
 
 	<table align="center" border="1" cellspacing="0" width="80%" cellpadding="0"> 
 
@@ -39,6 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td valign="top" align="center">设备名称</td> 
 			<td valign="top" align="center">设备类型</td> 
 			<td valign="top" align="center">设备安放地址</td>
+			<td valign="top" align="center">二维码</td>
+			<td valign="top" align="center">检查项目</td>
 		</tr>
 		<s:if test="dList.size()>0">
 		<s:iterator value="dList" var="dl">
@@ -58,12 +59,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="10%"  valign="top" align="center" class="text"> 
 				<s:property value="#dl.address" />
 			</td>
+			
+			<td width="10%"  valign="top" align="center" class="text"> 
+				<s:property value="#dl.qr" />
+			</td>
+			
+			<td width="9%"  valign="top" align="center" class="text">
+				<s:property value="#dl.checkItem" />
+			</td>
 		</tr>
 		</s:iterator>
 		</s:if>
-		<s:else><tr><td colspan="4" align="center">没有设备.</td></tr></s:else>
+		<s:else><tr><td colspan="6" align="center">没有设备.</td></tr></s:else>
 	</table>
-	
+
 	</div>
 
   </body>

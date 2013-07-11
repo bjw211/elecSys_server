@@ -59,10 +59,7 @@ public class loginAction extends ActionSupport implements ServletRequestAware,
 		this.response = arg0;
 	}
 
-	public void Login() {
-
-System.out.println(wid + "******" + pwd);		
-		
+	public void Login() {	
 		try {
 			worker = dao.findById(wid);		
 			
@@ -75,15 +72,16 @@ System.out.println(wid + "******" + pwd);
 			} else {
 				if (worker.getWid() != null) {
 					if (worker.getPwd().equals(pwd)) {
-						json.put("message", "»¶Ó­" + worker.getWname() + "µÇÂ½");
+						json.put("message", "success");
+						json.put("wname", worker.getWname());
 					} else {
 						json.put("message", "\"wrong password\"");
 					}
 				} else {
-					json.put("message", "no such worker");
+					json.put("message", "\"no such worker\"");
 				}
 			}
-			byte[] jsonBytes = json.toString().getBytes("utf-8");
+			byte[] jsonBytes = json.toString().getBytes("utf-8");			
 			response.setContentLength(jsonBytes.length);
 			response.getOutputStream().write(jsonBytes);
 			response.getOutputStream().flush();

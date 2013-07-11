@@ -81,19 +81,12 @@ public class moduleAction extends ActionSupport{
 		}
 	}
 	
-	public String add_module(){
+	public String add_module(){	
 		dList = ddao.findAll();
 		return SUCCESS;
 	}
 	
 	 public String modify_module(){
-			String key = mn.getMid();
-			Module m = dao.findById(key);
-			dao.delete(m);
-			dao.save(mn);
-			tx.commit();
-			moduleList = dao.findAll();
-			session.close();
 				
 			return SUCCESS;
 		 }

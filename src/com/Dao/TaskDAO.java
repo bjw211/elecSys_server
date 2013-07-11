@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 public class TaskDAO extends BaseHibernateDAO {
 	private static final Logger log = LoggerFactory.getLogger(TaskDAO.class);
 	// property constants
+	public static final String TNAME = "tname";
 	public static final String STATE = "state";
 	public static final String DEVICES = "devices";
 
@@ -86,6 +87,10 @@ public class TaskDAO extends BaseHibernateDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
+	}
+
+	public List findByTname(Object tname) {
+		return findByProperty(TNAME, tname);
 	}
 
 	public List findByState(Object state) {

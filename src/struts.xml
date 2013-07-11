@@ -22,7 +22,7 @@
 		</action>
 		<action name="find_worker" class="com.action.workerAction"
 			method="find_worker">
-			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="success">worker_index.jsp</result>
 		</action>
 		<action name="list_worker" class="com.action.workerAction"
 			method="list_worker">
@@ -31,52 +31,52 @@
 		</action>
 		<action name="add_worker" class="com.action.workerAction"
 			method="add_worker">
-			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="success">worker_index.jsp</result>
 			<result name="error">/jsp/worker_error.jsp</result>
 		</action>
 		<action name="delete_worker" class="com.action.workerAction"
 			method="delete_worker">
-			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="success">worker_index.jsp</result>
 			<result name="error">/jsp/worker_error.jsp</result>
 		</action>
 		<action name="modify_worker" class="com.action.workerAction"
 			method="modify_worker">
-			<result name="success">/jsp/worker_index.jsp</result>
+			<result name="success">worker_index.jsp</result>
 			<result name="error">/jsp/worker_error.jsp</result>
 		</action>
 		<action name="list_fault" class="com.action.faultAction"
 			method="list_fault">
-			<result name="success">/jsp/fault_index.jsp</result>
+			<result name="success">fault_index.jsp</result>
 			<result name="error">/jsp/worker_error.jsp</result>
 		</action>
 		<action name="find_fault" class="com.action.faultAction"
 			method="find_fault">
-			<result name="success">/jsp/fault_index.jsp</result>
+			<result name="success">fault_index.jsp</result>
 			<result name="error">/jsp/fault_error.jsp</result>
 		</action>
 		<action name="list_device" class="com.action.deviceAction"
 			method="list_device">
-			<result name="success">/jsp/device_index.jsp</result>
+			<result name="success">device_index.jsp</result>
 			<result name="error">/jsp/device_error.jsp</result>
 		</action>
 		<action name="find_device" class="com.action.deviceAction"
 			method="find_device">
-			<result name="success">/jsp/device_index.jsp</result>
+			<result name="success">device_index.jsp</result>
 			<result name="error">/jsp/device_error.jsp</result>
 		</action>
 		<action name="delete_device" class="com.action.deviceAction"
 			method="delete_device">
-			<result name="success">/jsp/device_index.jsp</result>
+			<result name="success">device_index.jsp</result>
 			<result name="error">/jsp/device_error.jsp</result>
 		</action>
 		<action name="add_device" class="com.action.deviceAction"
 			method="add_device">
-			<result name="success">/jsp/device_index.jsp</result>
+			<result name="success">device_index.jsp</result>
 			<result name="error">/jsp/device_error.jsp</result>
 		</action>
 		<action name="modify_device" class="com.action.deviceAction"
 			method="modify_device">
-			<result name="success">/jsp/module_index.jsp</result>
+			<result name="success">device_index.jsp</result>
 			<result name="error">/jsp/module_error.jsp</result>
 		</action>
 		<action name="list_module" class="com.action.moduleAction"
@@ -104,11 +104,31 @@
 			<result name="success">add_module.jsp</result>
 			<result name="error">/jsp/module_error.jsp</result>
 		</action>
+		<action name="list_task" class="com.action.taskAction"
+			method="list_task">
+			<result name="success">task_index.jsp</result>
+			<result name="error"></result>
+		</action>
+		<action name="find_task" class="com.action.taskAction"
+			method="find_task">
+			<result name="success">task_index.jsp</result>
+			<result name="error"></result>
+		</action>
+		<action name="delete_task" class="com.action.taskAction"
+			method="delete_task">
+			<result name="success">task_index.jsp</result>
+			<result name="error"></result>
+		</action>
 	</package>
 	<!-- Add packages here -->
 	
 	<package name="mobile" namespace="/mobile" extends="json-default">
+	
 		<action name="Login" class="com.control.Action.loginAction" method="Login">
+			<result type="json"/>
+		</action>
+		
+		<action name="Acquire" class="com.control.Action.acquireTaskAction" method="Acquire">
 			<result type="json"/>
 		</action>
 		

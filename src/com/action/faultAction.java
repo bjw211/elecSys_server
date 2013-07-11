@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class faultAction extends ActionSupport{
 	
 	private String did;
-	private String dname;
+	private String solved;
 	private List<Fault> faultList;
 	private List fl;
 	private FaultDAO dao = new FaultDAO();
@@ -25,11 +25,11 @@ public class faultAction extends ActionSupport{
 	public void setDid(String did) {
 		this.did = did;
 	}
-	public String getDname() {
-		return dname;
+	public String getSolved() {
+		return solved;
 	}
-	public void setDname(String dname) {
-		this.dname = dname;
+	public void setSolved(String solved) {
+		this.solved = solved;
 	}
 	public List<Fault> getFaultList() {
 		return faultList;
@@ -40,18 +40,12 @@ public class faultAction extends ActionSupport{
 	
 	
 	public String list_fault(){
-		faultList = dao.findAll();
-		DeviceDAO da = new DeviceDAO(); 
-		for(int i = 0;i<faultList.size(); i++){
-			String name = da.findById(faultList.get(i).getDid()).getDname();
-			faultList.get(i).setDid(faultList.get(i).getDid()+"--"+name);
-		}
-		
+		faultList = dao.findAll();	
 		return SUCCESS;
 	}
 	
 	public String find_fault(){
-		faultList = dao.findByDid(did);
+		faultList = dao.findBySolved(solved);
 		return SUCCESS;
 	}
 }
