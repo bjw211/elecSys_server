@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import com.Dao.ResultDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class writeInfoAction extends ActionSupport implements
+public class receiveResultAction extends ActionSupport implements
 		ServletRequestAware, ServletResponseAware {
 
 	private HttpServletRequest request;
@@ -58,10 +58,8 @@ public class writeInfoAction extends ActionSupport implements
 		response = arg0;
 	}
 	
-	public void commitBack(){
+	public  void writeResult(){
 		
-		JSONObject json = new JSONObject("");
-		JSONArray array=json.getJSONArray("");
 	}
 
 }

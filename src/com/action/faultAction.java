@@ -18,6 +18,7 @@ public class faultAction extends ActionSupport{
 	private List<Fault> faultList;
 	private List fl;
 	private FaultDAO dao = new FaultDAO();
+	private DeviceDAO ddao = new DeviceDAO();
 	
 	public String getDid() {
 		return did;
@@ -40,7 +41,12 @@ public class faultAction extends ActionSupport{
 	
 	
 	public String list_fault(){
-		faultList = dao.findAll();	
+		faultList = dao.findAll();
+		Fault t;
+		for(int i=0;i<faultList.size();i++){
+			t = faultList.get(i);
+			t.setDid(t.getDid()+"--"+ddao.findById(t.getDid()).getDname());
+		}
 		return SUCCESS;
 	}
 	

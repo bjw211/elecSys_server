@@ -136,6 +136,14 @@
 			<result type="json"/>
 		</action>
 		
+		<action name="getDevice" class="com.control.Action.acquireDeviceAction" method="getDevice">
+			<result type="json"/>
+		</action>
+		
+		<action name="getFault" class="com.control.Action.acquireFaultAction" method="getFault">
+			<result type="json"/>
+		</action>
+		
 	</package>
 	
 </struts>
