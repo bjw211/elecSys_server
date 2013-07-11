@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	
   </head>
-  	<meta http-equiv="refresh" content="2;url=<%=basePath%>/jsp/modify_admin.jsp">
+  	<meta http-equiv="refresh" content="2;url=<%=basePath%>modify_admin.jsp">
   <body>
     <p align="center">
 		密码输入错误！请重新输入

@@ -93,7 +93,7 @@
 		
 		<action name="list2" class="com.action.moduleAction"
 			method="list2">
-			<result name="success">add_taskt.jsp</result>
+			<result name="success">add_task.jsp</result>
 			<result name="error">/jsp/device_error.jsp</result>
 		</action>
 		

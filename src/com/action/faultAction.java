@@ -16,7 +16,6 @@ public class faultAction extends ActionSupport{
 	private String did;
 	private String solved;
 	private List<Fault> faultList;
-	private List fl;
 	private FaultDAO dao = new FaultDAO();
 	private DeviceDAO ddao = new DeviceDAO();
 	

@@ -15,6 +15,7 @@ public class AdminLMAction extends ActionSupport{
 	private String npwd;
 	private String nnpwd;
 	private String aname;
+	private String tmp;
 	
 	public String getAname() {
 		return aname;
@@ -64,21 +65,22 @@ public class AdminLMAction extends ActionSupport{
 		AdminDAO dao = new AdminDAO();
 		Admin admin = dao.findById(aid);
 		
-		aname = admin.getAname();
-		
-		if(admin.getAid()== null){
+		if(admin == null){
 			System.out.println("no such user");
 			return ERROR;
 		}
 		
 		if(admin.getPwd().equals(pwd)){
-			System.out.println("ok");
+			aname = admin.getAname();
+			System.out.println("login success!");
 			return SUCCESS;
 		}
+		
 		return ERROR;
 	}
 	
 	public String modify(){
+	
 		AdminDAO dao = new AdminDAO();
 		Admin admin = dao.findById(aid);
 

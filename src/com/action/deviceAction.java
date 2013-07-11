@@ -74,7 +74,7 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	}
 	
 	public String find_device(){
-		deviceList = dao.findByDname(dname);
+		deviceList = dao.findByType(type);
 		return SUCCESS;
 	}
 	

@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	
   </head>
-  	<meta http-equiv="refresh" content="2;url=<%=basePath%>/jsp/index.jsp">
+  	<meta http-equiv="refresh" content="2;url=<%=basePath%>right.html">
   <body>
     <p align="center">
 		修改成功，跳转至首页！

@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <p align="center">
 		登陆失败,或session已超时!
-		<a href="<%=basePath%>index.jsp" >点击重新登录</a>
+		<a href="<%=basePath%>index1.jsp" >点击重新登录</a>
   </body>
 </html>
