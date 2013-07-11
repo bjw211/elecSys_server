@@ -132,6 +132,10 @@
 			<result type="json"/>
 		</action>
 		
+		<action name="getTask" class="com.control.Action.detailedTaskAction" method="getTask">
+			<result type="json"/>
+		</action>
+		
 	</package>
 	
 </struts>
