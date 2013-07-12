@@ -100,11 +100,6 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		}
 	}
 	
-	public String add_module(){	
-		dList = ddao.findAll();
-		return SUCCESS;
-	}
-	
 	 public String modify_module(){
 				
 			return SUCCESS;

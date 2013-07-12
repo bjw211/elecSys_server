@@ -61,23 +61,24 @@ body {
 				&nbsp;
 			</td>
 			<td valign="top" bgcolor="#F7F8F9">
-				<table width="98%" border="0" align="center" cellpadding="0"
-					cellspacing="0">
-					<tr>
-						<td colspan="2" valign="top" align="center">
-							请选择设备：
-						</td>
-					</tr>
-					<tr align="center">
-						<td class="text" colspan="2" align="center">
-							输入模板名称：
-							<input type="text" name="mname" />
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" valign="top">
-							<div align="center">
-								<s:form action="getDeviceElement">
+				<s:form action="getDeviceElement">
+					<table width="98%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td colspan="2" valign="top" align="center">
+								请选择设备：
+							</td>
+						</tr>
+						<tr align="center">
+							<td class="text" colspan="2" align="center">
+								输入模板名称：
+								<input type="text" name="mname" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" valign="top">
+								<div align="center">
+
 									<table align="center" border="0" cellspacing="2" width="20%"
 										cellpadding="2">
 										<p align="center">
@@ -85,7 +86,7 @@ body {
 											全选
 										</p>
 										<s:if test="deviceList.size()>0">
-											<s:iterator value="DeviceList" var="d">
+											<s:iterator value="deviceList" var="d">
 												<p>
 													<input type="checkbox" name="pro"
 														value="<s:property value="#d.did"/>" />
@@ -104,34 +105,35 @@ body {
 									</table>
 									<input type="submit" value="提交" />
 									<input type="reset" value="重置" />
-								</s:form>
-							</div>
-						</td>
-					</tr>
-					<tr>
-					</tr>
-					<tr>
-						<td colspan="2" valign="top">
-							<!--JavaScript部分-->
-					</tr>
-					<tr>
-						<td height="40" colspan="2">
-							&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td width="2%">
-							&nbsp;
-						</td>
-						<td width="51%" class="left_txt">
-							<img src="images/icon-mail2.gif" width="16" height="11">
-							疑问咨询邮箱：liyanrong912@163.com,chjili2011@163.com
-							<br>
-							<img src="images/icon-phone.gif" width="17" height="14">
-							开发人员单位：山东大学
-						</td>
-					</tr>
-				</table>
+
+								</div>
+							</td>
+						</tr>
+						<tr>
+						</tr>
+						<tr>
+							<td colspan="2" valign="top">
+								<!--JavaScript部分-->
+						</tr>
+						<tr>
+							<td height="40" colspan="2">
+								&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td width="2%">
+								&nbsp;
+							</td>
+							<td width="51%" class="left_txt">
+								<img src="images/icon-mail2.gif" width="16" height="11">
+								疑问咨询邮箱：liyanrong912@163.com,chjili2011@163.com
+								<br>
+								<img src="images/icon-phone.gif" width="17" height="14">
+								开发人员单位：山东大学
+							</td>
+						</tr>
+					</table>
+				</s:form>
 			</td>
 			<td background="images/mail_rightbg.gif">
 				&nbsp;

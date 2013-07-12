@@ -12,17 +12,22 @@ import org.hibernate.Transaction;
 
 import com.Dao.Device;
 import com.Dao.DeviceDAO;
-import com.Dao.Worker;
+import com.Dao.Module;
+import com.Dao.ModuleDAO;
 import com.db.HibernateSessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class deviceAction extends ActionSupport implements ServletRequestAware, ServletResponseAware{
 	private List<Device> deviceList;
 	private DeviceDAO dao = new DeviceDAO();
+	private ModuleDAO mdao = new ModuleDAO(); 
 	private String dname;
 	private String did;
 	private String type;
 	private Device dc;
+	private String mname;
+	private String de;
+	private String mid;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 	
@@ -43,6 +48,12 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	}
 	public void setDname(String dname) {
 		this.dname = dname;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
 	public String getDid() {
 		return did;
@@ -78,15 +89,28 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 		return SUCCESS;
 	}
 	
+	//写入数据库，处理业务逻辑
 	public String getDeviceElement(){
-		String[] str = new String[20];
-		if(request == null){
-			System.out.println("fuck");
-			return SUCCESS;
+		calMid();
+		
+		Module m = new Module();
+		m.setMid(mid);
+		m.setMname(mname);
+		
+		String[] str = request.getParameterValues("pro");
+		int count = str.length;
+		de = Integer.toString(count);
+		for(int i=0;i<str.length;i++){
+			de += "@" + str[i];
+			de += "@" + dao.findById(str[i]).getDname();
 		}
-		str = request.getParameterValues("pro");
-		for(int i=0;i<str.length;i++)
-			System.out.println(str[i]);
+		m.setDevices(de);
+		
+		mdao.save(m);
+		tx.commit();
+		session.close();
+		System.out.println("add module successfully.");		
+		
 		return SUCCESS;
 	}
 	
@@ -130,5 +154,12 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		response = arg0;
+	}
+	
+	//计算模板号
+	public void calMid(){
+		List<Module> l;
+		l = mdao.findAll();
+		mid = Integer.toString(Integer.parseInt(l.get(l.size()-1).getMid())+1);
 	}
 }
