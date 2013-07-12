@@ -132,42 +132,21 @@ public class acquireTaskAction extends ActionSupport implements
 			Task t;
 			taskList = dao.findAll();
 
-			Worker w = wdao.findById(wid);
-
-			if (w == null) {
+			if (wid == null) {
 				result.put("message", "\"no such worker\"");
 			} else {
-				if (time == null) {
-					// 所有任务
-					for (int i = 0; i < taskList.size(); i++) {
-						Map<String, String> json = new HashMap<String, String>();
-						t = taskList.get(i);
-						if (t.getWorker().getWid().equals(wid)
-								&& t.getState().equals(state)) {
-							// 获取devices并解析计数回传
-							tid = t.getTid();
-							tname = t.getTname();
-							stime = t.getStime();
-							deadline = t.getDeadline();
-							etime = t.getEtime();
-							count = t.getDevices().substring(0, 1);
-							json.put("tid", tid);
-							json.put("tname", tname);
-							json.put("stime", df.format(stime));
-							json.put("deadline", df.format(deadline));
-							json.put("etime", df.format(etime));
-							json.put("count", count);
-							list.add(json);
-						}
-					}
+				Worker w = wdao.findById(wid);
+				if (w == null) {
+					result.put("message", "\"no such worker\"");
 				} else {
-					// 布置时间比time晚的
-					if (state.equals("undo")) {
+					if (time == null) {
+						// 所有任务
 						for (int i = 0; i < taskList.size(); i++) {
 							Map<String, String> json = new HashMap<String, String>();
 							t = taskList.get(i);
-							if (t.getStime().after(time)
-									&& t.getWorker().getWid().equals(wid)) {
+							if (t.getWorker().getWid().equals(wid)
+									&& t.getState().equals(state)) {
+								// 获取devices并解析计数回传
 								tid = t.getTid();
 								tname = t.getTname();
 								stime = t.getStime();
@@ -183,55 +162,78 @@ public class acquireTaskAction extends ActionSupport implements
 								list.add(json);
 							}
 						}
-					} else if (state.equals("done")) { // 完成时间比time晚的
-						for (int i = 0; i < taskList.size(); i++) {
-							Map<String, String> json = new HashMap<String, String>();
-							t = taskList.get(i);
-							if (t.getEtime().after(time)
-									&& t.getWorker().getWid().equals(wid)) {
-								tid = t.getTid();
-								tname = t.getTname();
-								stime = t.getStime();
-								deadline = t.getDeadline();
-								etime = t.getEtime();
-								count = t.getDevices().substring(0, 1);
-								json.put("tid", tid);
-								json.put("tname", tname);
-								json.put("stime", df.format(stime));
-								json.put("deadline", df.format(deadline));
-								json.put("etime", df.format(etime));
-								json.put("count", count);
-								list.add(json);
+					} else {
+						// 布置时间比time晚的
+						if (state.equals("undo")) {
+							for (int i = 0; i < taskList.size(); i++) {
+								Map<String, String> json = new HashMap<String, String>();
+								t = taskList.get(i);
+								if (t.getStime().after(time)
+										&& t.getWorker().getWid().equals(wid)) {
+									tid = t.getTid();
+									tname = t.getTname();
+									stime = t.getStime();
+									deadline = t.getDeadline();
+									etime = t.getEtime();
+									count = t.getDevices().substring(0, 1);
+									json.put("tid", tid);
+									json.put("tname", tname);
+									json.put("stime", df.format(stime));
+									json.put("deadline", df.format(deadline));
+									json.put("etime", df.format(etime));
+									json.put("count", count);
+									list.add(json);
+								}
 							}
-						}
-					} else { // deadline 比time晚的
-						for (int i = 0; i < taskList.size(); i++) {
-							Map<String, String> json = new HashMap<String, String>();
-							t = taskList.get(i);
-							if (t.getDeadline().after(time)
-									&& t.getWorker().getWid().equals(wid)) {
-								tid = t.getTid();
-								tname = t.getTname();
-								stime = t.getStime();
-								deadline = t.getDeadline();
-								etime = t.getEtime();
-								count = t.getDevices().substring(0, 1);
-								json.put("tid", tid);
-								json.put("tname", tname);
-								json.put("stime", df.format(stime));
-								json.put("deadline", df.format(deadline));
-								json.put("etime", df.format(etime));
-								json.put("count", count);
-								list.add(json);
+						} else if (state.equals("done")) { // 完成时间比time晚的
+							for (int i = 0; i < taskList.size(); i++) {
+								Map<String, String> json = new HashMap<String, String>();
+								t = taskList.get(i);
+								if (t.getEtime().after(time)
+										&& t.getWorker().getWid().equals(wid)) {
+									tid = t.getTid();
+									tname = t.getTname();
+									stime = t.getStime();
+									deadline = t.getDeadline();
+									etime = t.getEtime();
+									count = t.getDevices().substring(0, 1);
+									json.put("tid", tid);
+									json.put("tname", tname);
+									json.put("stime", df.format(stime));
+									json.put("deadline", df.format(deadline));
+									json.put("etime", df.format(etime));
+									json.put("count", count);
+									list.add(json);
+								}
+							}
+						} else { // deadline 比time晚的
+							for (int i = 0; i < taskList.size(); i++) {
+								Map<String, String> json = new HashMap<String, String>();
+								t = taskList.get(i);
+								if (t.getDeadline().after(time)
+										&& t.getWorker().getWid().equals(wid)) {
+									tid = t.getTid();
+									tname = t.getTname();
+									stime = t.getStime();
+									deadline = t.getDeadline();
+									etime = t.getEtime();
+									count = t.getDevices().substring(0, 1);
+									json.put("tid", tid);
+									json.put("tname", tname);
+									json.put("stime", df.format(stime));
+									json.put("deadline", df.format(deadline));
+									json.put("etime", df.format(etime));
+									json.put("count", count);
+									list.add(json);
+								}
 							}
 						}
 					}
+					result.put("message", "success");
 				}
-				result.put("message", "success");
+
+				result.put("tasklist", list.toString());
 			}
-
-			result.put("tasklist", list.toString());
-
 			byte[] jsonBytes = result.toString().getBytes("utf-8");
 			response.setContentLength(jsonBytes.length);
 			response.getOutputStream().write(jsonBytes);

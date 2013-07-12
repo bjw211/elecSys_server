@@ -27,6 +27,7 @@
 		<mapping resource="com/Dao/Worker.hbm.xml" />
 		<mapping resource="com/Dao/Task.hbm.xml" />
 		<mapping resource="com/Dao/Fault.hbm.xml" />
+		<mapping resource="com/Dao/Log.hbm.xml" />
 
 	</session-factory>
 

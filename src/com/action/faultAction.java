@@ -41,10 +41,8 @@ public class faultAction extends ActionSupport{
 	
 	public String list_fault(){
 		faultList = dao.findAll();
-		Fault t;
 		for(int i=0;i<faultList.size();i++){
-			t = faultList.get(i);
-			t.setDid(t.getDid()+"--"+ddao.findById(t.getDid()).getDname());
+			faultList.get(i).setDid(faultList.get(i).getDid()+"--"+ddao.findById(faultList.get(i).getDid()).getDname());
 		}
 		return SUCCESS;
 	}

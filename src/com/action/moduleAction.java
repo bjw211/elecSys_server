@@ -1,5 +1,6 @@
 package com.action;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,14 @@ import org.hibernate.Transaction;
 
 import com.Dao.Device;
 import com.Dao.DeviceDAO;
+import com.Dao.Log;
+import com.Dao.LogDAO;
 import com.Dao.Module;
 import com.Dao.ModuleDAO;
+import com.Dao.Task;
+import com.Dao.TaskDAO;
+import com.Dao.Worker;
+import com.Dao.WorkerDAO;
 import com.db.HibernateSessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -25,12 +32,16 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 	private Module mn;
 	private ModuleDAO dao = new ModuleDAO();
 	private DeviceDAO ddao = new DeviceDAO();
+	private LogDAO ldao = new LogDAO();
 	private List<Device> dList;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	
+	private String nmid;
+	
 	
 	public String getMid() {
 		return mid;
@@ -80,30 +91,98 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 	
 	public String getModuleElement(){
 		String[] str =request.getParameterValues("pro");
-		for(int i=0;i<str.length;i++)
-			System.out.println(str[i]);
+		
+		ldao.findById("001").setValue(str[0]);
+		tx.commit();
+		session.close();
+		
+		System.out.println("log in the log table successfully.");		
 		return SUCCESS;
 	}
 	
-	public String delete_module(){
-		Module m = new Module();
-		m = dao.findById(mid);
-		if(m == null){
-			moduleList = dao.findAll();
+	
+	private String tid;
+	private Date stime;
+	private String state = "UNDO";
+	private String wid;
+	private String dec;
+	private Date deadline;
+	private String tname;
+	private WorkerDAO wdao = new WorkerDAO();
+	private TaskDAO tdao = new TaskDAO();
+	
+	public Date getStime() {
+		return stime;
+	}
+	public String getDec() {
+		return dec;
+	}
+	public void setDec(String dec) {
+		this.dec = dec;
+	}
+	public void setStime(Date stime) {
+		this.stime = stime;
+	}
+	public String getWid() {
+		return wid;
+	}
+	public void setWid(String wid) {
+		this.wid = wid;
+	}
+	public Date getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+
+	public String select(){
+		
+		nmid = ldao.findById("001").getValue();
+		dec = dao.findById(nmid).getDevices();
+		return SUCCESS;
+	}
+	
+	//处理新建任务的业务逻辑
+	public String writeTask(){
+System.out.println("fuck");		
+		Worker w = wdao.findById(wid);
+System.out.println(wid + "fuck");		
+		if(w == null){
+			System.out.println("no such worker.&&&&");			
 			return ERROR;
 		}else{
-			dao.delete(m);
+			
+			calTid();
+			Task nt = new Task();
+			nt.setTid(tid);
+			nt.setState(state);
+			nt.setTname(tname);
+			nt.setWorker(w);
+			nt.setDeadline(deadline);
+			nt.setStime(stime);
+			
+			
+			nmid = ldao.findById("001").getValue();
+			dec = dao.findById(nmid).getDevices();
+			System.out.println(nmid);
+			nt.setDevices(dao.findById(nmid).getDevices());
+			
+			tdao.save(nt);
 			tx.commit();
-			moduleList = dao.findAll();
 			session.close();
+			System.out.println("add task by device successfully.");			
+			
 			return SUCCESS;
 		}
 	}
 	
-	 public String modify_module(){
-				
-			return SUCCESS;
-		 }
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		response = arg0;
@@ -112,4 +191,11 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		// TODO Auto-generated method stub
 		request = arg0;
 	}
+	
+	public void calTid(){
+		List<Task> t;
+		t = tdao.findAll();
+		tid = Integer.toString(Integer.parseInt(t.get(t.size()-1).getTid())+1);
+	}
+	
 }

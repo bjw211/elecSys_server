@@ -135,8 +135,6 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	private String dec;
 	private Date deadline;
 	private String tname;
-	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-	
 	
 	public Date getStime() {
 		return stime;
