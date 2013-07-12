@@ -24,7 +24,7 @@ body {
     <td width="17" valign="top" background="images/mail_leftbg.gif"><img src="images/left-top-right.gif" width="17" height="29" /></td>
     <td valign="top" background="images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
       <tr>
-        <td height="31"><div class="titlebt">修改设备</div></td>
+        <td height="31"><div class="titlebt">任务列表</div></td>
       </tr>
     </table></td>
     <td width="16" valign="top" background="images/mail_rightbg.gif"><img src="images/nav-right-bg.gif" width="16" height="29" /></td>
@@ -64,7 +64,8 @@ body {
 		<tr bgcolor=#99CC33 class="text" >
 			<td valign="top" align="center">任务号</td>
 			<td valign="top" align="center">任务名称</td>
-			<td valign="top" align="center">开始时间</td> 
+			<td valign="top" align="center">布置时间</td> 
+			<td valign="top" align="center">截止时间</td>
 			<td valign="top" align="center">结束时间</td> 
 			<td valign="top" align="center">任务状态</td>
 			<td valign="top" align="center">工人ID</td>
@@ -84,6 +85,10 @@ body {
 			 
 			<td width="10%"  valign="top" align="center" class="text"> 
 				<s:property value="#t.stime" />
+			</td>
+			
+			<td width="10%"  valign="top" align="center" class="text"> 
+				<s:property value="#t.deadline" />
 			</td>
 
 			<td width="10%"  valign="top" align="center" class="text"> 
