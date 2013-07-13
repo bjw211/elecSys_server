@@ -38,7 +38,7 @@
 		<action name="delete_worker" class="com.action.workerAction"
 			method="delete_worker">
 			<result name="success">worker_index.jsp</result>
-			<result name="error">worker_error.jsp</result>
+			<result name="error">workerDeleteError.jsp</result>
 		</action>
 		<action name="modify_worker" class="com.action.workerAction"
 			method="modify_worker">
@@ -118,15 +118,9 @@
 			<result name="error">device_error.jsp</result>
 		</action>
 		
-		<action name="getModuleElement" class="com.action.moduleAction"
-			method="getModuleElement">
-			<result name="success">select_device.jsp</result>
-			<result name="error">task_error.jsp</result>
-		</action>
-		
-		<action name="select" class="com.action.moduleAction"
-			method="select">
-			<result name="success">addTaskbyModule.jsp</result>
+		<action name="writeTask1" class="com.action.moduleAction"
+			method="writeTask1">
+			<result name="success">addTaskbyDeviceSuccessful.jsp</result>
 			<result name="error">task_error.jsp</result>
 		</action>
 		
@@ -136,10 +130,10 @@
 			<result name="error">module_error.jsp</result>
 		</action>
 		
-		<action name="writeTask" class="com.action.moduleAction"
-			method="writeTask">
-			<result name="success">addTaskbyDeviceSuccessful.jsp</result>
-			<result name="error">task_error.jsp</result>
+			<action name="delete_module" class="com.action.moduleAction"
+			method="delete_module">
+			<result name="success">module_index.jsp</result>
+			<result name="error">module_error.jsp</result>
 		</action>
 		
 		<action name="list_task" class="com.action.taskAction"
@@ -191,6 +185,10 @@
 		</action>
 		
 		<action name="writeResult" class="com.control.Action.receiveResultAction" method="writeResult">
+			<result type="json"/>
+		</action>
+		
+		<action name="checkTask" class="com.control.Action.taskFinishAction" method="checkTask">
 			<result type="json"/>
 		</action>
 		

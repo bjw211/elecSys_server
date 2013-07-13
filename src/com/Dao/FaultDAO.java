@@ -49,7 +49,7 @@ public class FaultDAO extends BaseHibernateDAO {
 		}
 	}
 
-	public Fault findById(java.lang.String id) {
+	public Fault findById(java.lang.Integer id) {
 		log.debug("getting Fault instance with id: " + id);
 		try {
 			Fault instance = (Fault) getSession().get("com.Dao.Fault", id);

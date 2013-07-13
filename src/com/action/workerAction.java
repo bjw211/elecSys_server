@@ -1,11 +1,12 @@
 package com.action;
 
-import java.util.*;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.Dao.Device;
+import com.Dao.Task;
+import com.Dao.TaskDAO;
 import com.Dao.Worker;
 import com.Dao.WorkerDAO;
 import com.db.HibernateSessionFactory;
@@ -18,6 +19,11 @@ public class workerAction extends ActionSupport {
 	private String wid;
 	private String key;
 	private static WorkerDAO dao = new WorkerDAO();
+	
+	private TaskDAO tdao = new TaskDAO();
+	private List<Task> tlist;
+	
+	
 	private Worker nw;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
@@ -76,16 +82,30 @@ public class workerAction extends ActionSupport {
 
 	 public String delete_worker(){
 		Worker w = dao.findById(wid);
-		if(w ==null){
+		if(w == null){
 			workerList = dao.findAll();
 			return ERROR;
 		}else{
+			tlist = tdao.findAll();
+			
+			for(int i=0;i<tlist.size();i++){
+				Task t = tlist.get(i);
+				if(t.getWorker().getWid().equals(w.getWid())){
+					if(!t.getState().equals("DONE")){
+						return ERROR;
+					}else{
+						tdao.delete(t);
+					}
+				}
+			}
 			dao.delete(w);
 			tx.commit();
 			workerList = dao.findAll();
+			session.close();
 			return SUCCESS;
 		}
 	 }
+	 
 	 public String modify_worker(){
 		key = nw.getWid();
 		Worker d = dao.findById(key);

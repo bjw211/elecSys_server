@@ -10,6 +10,7 @@ public class ResultId implements java.io.Serializable {
 
 	private String tid;
 	private String did;
+	private String cid;
 
 	// Constructors
 
@@ -18,9 +19,10 @@ public class ResultId implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public ResultId(String tid, String did) {
+	public ResultId(String tid, String did, String cid) {
 		this.tid = tid;
 		this.did = did;
+		this.cid = cid;
 	}
 
 	// Property accessors
@@ -41,6 +43,14 @@ public class ResultId implements java.io.Serializable {
 		this.did = did;
 	}
 
+	public String getCid() {
+		return this.cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -55,7 +65,10 @@ public class ResultId implements java.io.Serializable {
 				castOther.getTid())))
 				&& ((this.getDid() == castOther.getDid()) || (this.getDid() != null
 						&& castOther.getDid() != null && this.getDid().equals(
-						castOther.getDid())));
+						castOther.getDid())))
+				&& ((this.getCid() == castOther.getCid()) || (this.getCid() != null
+						&& castOther.getCid() != null && this.getCid().equals(
+						castOther.getCid())));
 	}
 
 	public int hashCode() {
@@ -65,6 +78,8 @@ public class ResultId implements java.io.Serializable {
 				+ (getTid() == null ? 0 : this.getTid().hashCode());
 		result = 37 * result
 				+ (getDid() == null ? 0 : this.getDid().hashCode());
+		result = 37 * result
+				+ (getCid() == null ? 0 : this.getCid().hashCode());
 		return result;
 	}
 

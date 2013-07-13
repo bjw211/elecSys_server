@@ -10,7 +10,7 @@ public class Fault implements java.io.Serializable {
 
 	// Fields
 
-	private String fid;
+	private Integer fid;
 	private String did;
 	private String content;
 	private Date time;
@@ -22,15 +22,8 @@ public class Fault implements java.io.Serializable {
 	public Fault() {
 	}
 
-	/** minimal constructor */
-	public Fault(String fid) {
-		this.fid = fid;
-	}
-
 	/** full constructor */
-	public Fault(String fid, String did, String content, Date time,
-			String solved) {
-		this.fid = fid;
+	public Fault(String did, String content, Date time, String solved) {
 		this.did = did;
 		this.content = content;
 		this.time = time;
@@ -39,11 +32,11 @@ public class Fault implements java.io.Serializable {
 
 	// Property accessors
 
-	public String getFid() {
+	public Integer getFid() {
 		return this.fid;
 	}
 
-	public void setFid(String fid) {
+	public void setFid(Integer fid) {
 		this.fid = fid;
 	}
 

@@ -148,10 +148,10 @@ body {
 
 							<p align="center" style="color: red">
 								当前第1页
-								<a href="<%=basePath%>jsp/worker_index.jsp">[首页]</a>
-								<a href="<%=basePath%>jsp/worker_index.jsp">[上一页]</a>
-								<a href="<%=basePath%>jsp/worker_index.jsp">[下一页]</a>
-								<a href="<%=basePath%>jsp/worker_index.jsp">[尾页]</a>
+								<a href="<%=basePath%>worker_index.jsp">[首页]</a>
+								<a href="<%=basePath%>worker_index.jsp">[上一页]</a>
+								<a href="<%=basePath%>worker_index.jsp">[下一页]</a>
+								<a href="<%=basePath%>worker_index.jsp">[尾页]</a>
 							</p>
 
 							</div>

@@ -1,7 +1,5 @@
 package com.action;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +21,8 @@ import com.Dao.Worker;
 import com.Dao.WorkerDAO;
 import com.db.HibernateSessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
+
+import util.*;;
 
 public class deviceAction extends ActionSupport implements ServletRequestAware, ServletResponseAware{
 	private List<Device> deviceList;
@@ -211,6 +211,9 @@ System.out.println("add task by device successfully.");
 	}
 	
 	public String add_device(){
+		String str = "设备号:" + dc.getDid() + ",设备名称:" + dc.getDname() + ",设备类型:" + dc.getType() + ",设备安放地址:" + dc.getAddress();
+		new CDQR().encode(dc.getDid()+"@"+str);
+		dc.setQr(str);
 		dao.save(dc);
 		tx.commit();
 		deviceList = dao.findAll();
@@ -248,6 +251,6 @@ System.out.println("add task by device successfully.");
 	public void calTid(){
 		List<Task> t;
 		t = tdao.findAll();
-		tid = Integer.toString(Integer.parseInt(t.get(t.size()-1).getTid())+1);
+		tid = Integer.toString(t.size()+1);
 	}
 }

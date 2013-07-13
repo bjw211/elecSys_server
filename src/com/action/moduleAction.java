@@ -183,6 +183,19 @@ System.out.println(wid + "fuck");
 		}
 	}
 	
+	public String delete_module(){
+		mn = dao.findById(mid);
+		if(mn != null){
+			dao.delete(mn);
+			moduleList = dao.findAll();
+			tx.commit();
+			session.close();
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		response = arg0;
@@ -195,7 +208,7 @@ System.out.println(wid + "fuck");
 	public void calTid(){
 		List<Task> t;
 		t = tdao.findAll();
-		tid = Integer.toString(Integer.parseInt(t.get(t.size()-1).getTid())+1);
+		tid = Integer.toString(t.size()+1);
 	}
 	
 }

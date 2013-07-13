@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 public class ResultDAO extends BaseHibernateDAO {
 	private static final Logger log = LoggerFactory.getLogger(ResultDAO.class);
 	// property constants
-	public static final String CID = "cid";
 	public static final String VALUE = "value";
 
 	public void save(Result transientInstance) {
@@ -85,10 +84,6 @@ public class ResultDAO extends BaseHibernateDAO {
 			log.error("find by property name failed", re);
 			throw re;
 		}
-	}
-
-	public List findByCid(Object cid) {
-		return findByProperty(CID, cid);
 	}
 
 	public List findByValue(Object value) {

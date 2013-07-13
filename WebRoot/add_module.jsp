@@ -1,9 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
+
 
 <link href="images/skin.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
@@ -18,6 +21,7 @@ body {
 }
 -->
 </style>
+<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript">
    function chk(){
      var aa=document.getElementsByName("pro")
@@ -46,7 +50,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								新建模板
+								新建任务
 							</div>
 						</td>
 					</tr>
@@ -57,86 +61,88 @@ body {
 			</td>
 		</tr>
 		<tr>
-			<td valign="middle" background="images/mail_leftbg.gif">
-				&nbsp;
+			<td valign="middle" background="images/mail_leftbg.gif">&nbsp;
+				
 			</td>
-			<td valign="top" bgcolor="#F7F8F9">
-				<s:form action="getDeviceElement">
-					<table width="98%" border="0" align="center" cellpadding="0"
-						cellspacing="0">
-						<tr>
-							<td colspan="2" valign="top" align="center">
-								请选择设备：
-							</td>
-						</tr>
-						<tr align="center">
-							<td class="text" colspan="2" align="center">
-								输入模板名称：
-								<input type="text" name="mname" />
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" valign="top">
-								<div align="center">
-
-									<table align="center" border="0" cellspacing="2" width="20%"
-										cellpadding="2">
-										<p align="center">
-											<input type="checkbox" id="all" onclick="chk()" />
-											全选
-										</p>
-										<s:if test="deviceList.size()>0">
-											<s:iterator value="deviceList" var="d">
-												<p>
-													<input type="checkbox" name="pro"
-														value="<s:property value="#d.did"/>" />
-													<s:property value="#d.dname" />
-													<br>
-												</p>
-											</s:iterator>
-										</s:if>
-										<s:else>
-											<tr>
-												<td colspan="6" align="center">
-													没有找到设备.
+			<td valign="top" bgcolor="#F7F8F9" align="center">
+				<table width="98%" border="0" align="center" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td align="center">
+                        	
+                            
+					<s:form action="getDeviceElement" align="center">
+								<tr align="center">
+									<td class="text" colspan="2" align="center">
+										<table align="center" border="1" cellspacing="0" width="464"
+											cellpadding="0" height="255" align="center">
+											<tr align="left">
+												<td width="17%" height="21">
+													模板名称
+												</td>
+												<td width="33%">
+													<input type="text" name="mname" />
 												</td>
 											</tr>
-										</s:else>
-									</table>
-									<input type="submit" value="提交" />
-									<input type="reset" value="重置" />
+											<tr align="left">
+												<td colspan="4" align="left">
+													<div align="left">
+														<p align="left">
+															<input type="checkbox" id="all" onclick="chk()"
+																align="left" />
+															全选
+														</p>
+														<s:iterator value="deviceList" var="d">
+															<p>
+																<input type="checkbox" name="pro" align="left"
+																	value="<s:property value="#d.did"/>" />
+																<s:property value="#d.did" />
+																----
+																<s:property value="#d.dname" />
+																<br>
+															</p>
+														</s:iterator>
 
-								</div>
-							</td>
-						</tr>
-						<tr>
-						</tr>
-						<tr>
-							<td colspan="2" valign="top">
-								<!--JavaScript部分-->
-						</tr>
-						<tr>
-							<td height="40" colspan="2">
-								&nbsp;
-							</td>
-						</tr>
-						<tr>
-							<td width="2%">
-								&nbsp;
-							</td>
-							<td width="51%" class="left_txt">
-								<img src="images/icon-mail2.gif" width="16" height="11">
-								疑问咨询邮箱：liyanrong912@163.com,chjili2011@163.com
-								<br>
-								<img src="images/icon-phone.gif" width="17" height="14">
-								开发人员单位：山东大学
-							</td>
-						</tr>
-					</table>
-				</s:form>
+
+
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" align="right">
+													<input type="submit" value="提交" />
+												</td>
+												<td colspan="2" align="left">
+													<input type="reset" value="重置" />
+												</td>
+											</tr>
+
+										</table>
+									</td>
+								</tr>
+							</s:form>
+                        
+                        
+                        
+                        
+							
+						</td>
+					</tr>
+					<tr>
+						<td width="100%" class="left_txt">
+							<img src="images/icon-mail2.gif" width="16" height="11">
+							疑问咨询邮箱：liyanrong912@163.com,chjili2011@163.com
+							<br>
+							<img src="images/icon-phone.gif" width="17" height="14">
+							开发人员单位：山东大学
+						</td>
+
+
+					</tr>
+				</table>
 			</td>
-			<td background="images/mail_rightbg.gif">
-				&nbsp;
+			<td background="images/mail_rightbg.gif">&nbsp;
+				
 			</td>
 		</tr>
 		<tr>
@@ -152,4 +158,3 @@ body {
 		</tr>
 	</table>
 </body>
-

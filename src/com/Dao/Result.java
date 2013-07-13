@@ -9,7 +9,6 @@ public class Result implements java.io.Serializable {
 	// Fields
 
 	private ResultId id;
-	private String cid;
 	private String value;
 
 	// Constructors
@@ -24,9 +23,8 @@ public class Result implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Result(ResultId id, String cid, String value) {
+	public Result(ResultId id, String value) {
 		this.id = id;
-		this.cid = cid;
 		this.value = value;
 	}
 
@@ -38,14 +36,6 @@ public class Result implements java.io.Serializable {
 
 	public void setId(ResultId id) {
 		this.id = id;
-	}
-
-	public String getCid() {
-		return this.cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
 	}
 
 	public String getValue() {

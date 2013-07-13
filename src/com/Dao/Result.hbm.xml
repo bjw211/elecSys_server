@@ -13,10 +13,10 @@
             <key-property name="did" type="java.lang.String">
                 <column name="did" length="15" />
             </key-property>
+            <key-property name="cid" type="java.lang.String">
+                <column name="cid" length="15" />
+            </key-property>
         </composite-id>
-        <property name="cid" type="java.lang.String">
-            <column name="cid" length="15" />
-        </property>
         <property name="value" type="java.lang.String">
             <column name="value" length="45" />
         </property>

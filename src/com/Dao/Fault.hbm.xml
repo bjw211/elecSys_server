@@ -6,15 +6,15 @@
 -->
 <hibernate-mapping>
     <class name="com.Dao.Fault" table="fault" catalog="electric1">
-        <id name="fid" type="java.lang.String">
-            <column name="fid" length="15" />
-            <generator class="assigned" />
+        <id name="fid" type="java.lang.Integer">
+            <column name="fid" />
+            <generator class="identity" />
         </id>
         <property name="did" type="java.lang.String">
             <column name="did" length="45" />
         </property>
         <property name="content" type="java.lang.String">
-            <column name="content" length="100" />
+            <column name="content" />
         </property>
         <property name="time" type="java.util.Date">
             <column name="time" length="10" />
