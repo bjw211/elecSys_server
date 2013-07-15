@@ -22,7 +22,6 @@ body {
 -->
 </style>
 <body>
-<s:form action="delete_task">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="17" valign="top" background="images/mail_leftbg.gif">
@@ -34,7 +33,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								任务列表
+								查询任务
 							</div>
 						</td>
 					</tr>
@@ -49,6 +48,7 @@ body {
 				&nbsp;
 			</td>
 			<td valign="top" bgcolor="#F7F8F9">
+				
 				<table width="98%" border="0" align="center" cellpadding="0"
 					cellspacing="0">
 					<tr>
@@ -58,19 +58,47 @@ body {
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
+							本次查询提供模糊查询功能，例如：为方便您查找关于某一地区的所有电力任务，你可以输入关键字来查找，如输入：
+							高新区，您可以得到所有和高新区相关的任务。
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
 							<div>
+								<div align="center">
+									<s:form action="find_task">
+									任务状态
+									<select name="type" >
+				<option value="1">
+												---请选择---
+											</option>
+											<option value="DONE">
+												DONE
+											</option>
+											<option value="UNDO">
+												UNDO
+											</option>
+											<option value="OVERTIME">
+												OVERTIME
+											</option>
+									
+										</select>
+									
+									
+									
+									关键字<input name="tname" type="text" size="7" />
+										<input type="submit" value="查   询" />
+									</s:form>
+								</div>
+								
 								<table align="center" border="1" cellspacing="0" width="80%"
 									cellpadding="0">
-									
-									<tr>
-										<td colspan="10" align="center">
-												List
-										</td>
-									</tr>
 									<tr bgcolor=#99CC33 class="text">
-										<td valign="top" align="center" width="5%">
-											选中
-										</td>
 										<td valign="top" align="center">
 											任务号
 										</td>
@@ -102,10 +130,6 @@ body {
 									<s:if test="taskList.size()>0">
 										<s:iterator value="taskList" var="t">
 											<tr>
-												<td>
-													<input type="radio" name="pro" align="middle" 
-														value="<s:property value="#t.tid"/>"/>
-												</td>
 												<td width="8%" valign="top" align="center" class="text">
 													<s:property value="#t.tid" />
 												</td>
@@ -145,50 +169,19 @@ body {
 									</s:if>
 									<s:else>
 										<tr>
-											<td colspan="10" align="center">
+											<td colspan="9" align="center">
 												没有找到您查询的任务.
 											</td>
 										</tr>
 									</s:else>
-									<tr>
-										<td colspan="10" align="center">
-											<input type="submit" value="删   除" />
-										</td>
-									</tr>
-									
 								</table>
-								<br>
-								<!--  
-								<div align="center">
-									<s:form action="delete_task">
-										<input type="submit" value="删   除" />
-									</s:form>
-								</div>
-								-->
-
-								<p align="center" style="color: red">
-									当前第1页
-									<a href="<%=basePath%>worker_index.jsp">[首页]</a>
-									<a href="<%=basePath%>worker_index.jsp">[上一页]</a>
-									<a href="<%=basePath%>worker_index.jsp">[下一页]</a>
-									<a href="<%=basePath%>worker_index.jsp">[尾页]</a>
-								</p>
 							</div>
-
-
-
-
-
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2">
 							&nbsp;
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
@@ -246,6 +239,4 @@ body {
 			</td>
 		</tr>
 	</table>
-	
-	</s:form>
 </body>

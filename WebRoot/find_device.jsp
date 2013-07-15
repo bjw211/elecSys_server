@@ -7,8 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <link href="images/skin.css" rel="stylesheet" type="text/css" />
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<style type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /><style type="text/css">
 <!--
 body {
 	margin-left: 0px;
@@ -19,22 +18,7 @@ body {
 }
 -->
 </style>
-
-<script type="text/javascript">
-	function delete_d() {
-		document.form1.action = "delete_device";
-		document.form1.submit();
-	}
-
-	function list4() {
-		System.out.println(request.getParameter(""));
-		document.form1.action = "list4";
-		document.form1.submit();
-	}
-</script>
-
 <body>
-<s:form name="form1" method="post">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" valign="top" background="images/mail_leftbg.gif"><img src="images/left-top-right.gif" width="17" height="29" /></td>
@@ -52,12 +36,24 @@ body {
         <td colspan="2" valign="top">&nbsp;</td>
       </tr>
       <tr>
+        <td colspan="2" valign="top">输入设备类型和安放地点，可以查询出所有的相关的设备。</td>
+      </tr>
+       <tr>
+        <td colspan="2" valign="top">&nbsp;</td>
+      </tr>
+      <tr>
         <td colspan="2" valign="top">
     <div >
+	<div align="center">
+  	<s:form action="find_device">
+		设备类型 <input name="type" type="text" size="7"/>
+		安放地点 <input name="address" type="text" size="7"/>
+				<input type="submit" value="查   询" />
+			</s:form>
+		</div>
 	<table align="center" border="1" cellspacing="0" width="80%" cellpadding="0"> 
-		<tr><td colspan="7" align="center">List</td></tr>
+
 		<tr bgcolor=#99CC33 class="text" >
-			<td valign="top" align="center">选中</td> 
 			<td valign="top" align="center">设备号</td> 
 			<td valign="top" align="center">设备名称</td> 
 			<td valign="top" align="center">设备类型</td> 
@@ -68,9 +64,6 @@ body {
 		<s:if test="deviceList.size()>0">
 		<s:iterator value="deviceList" var="d">
 		<tr>
-			<td width="8%"  valign="top" align="center" class="text">
-				<input type="radio" name="pro" align="middle" value="<s:property value="#d.did"/>"/>
-			</td>
 			<td width="8%"  valign="top" align="center" class="text">
 				<s:property value="#d.did" />
 			</td>
@@ -97,28 +90,8 @@ body {
 		</tr>
 		</s:iterator>
 		</s:if>
-		<s:else><tr><td colspan="7" align="center">没有找到您查询的设备.</td></tr></s:else>
-		<tr><td colspan="7" align="center"><input type="button" onclick=delete_d();; value="删   除" /></td></tr>
+		<s:else><tr><td colspan="6" align="center">没有找到您查询的设备.</td></tr></s:else>
 	</table>
-	
-	<!--
-	<div align="center">
-			<s:form action="delete_device">
-				查询条件：
-				设备号    <input name="did" type="text" size="7"/>
-				<input type="submit" value="删   除" />
-			</s:form>
-		</div>
-	  -->
-
-	<p align="center" style="color:red">
-	当前第1页
-	<a href="<%=basePath%>device_index.jsp">[首页]</a>
-	<a href="<%=basePath%>device_index.jsp">[上一页]</a>
-	<a href="<%=basePath%>device_index.jsp">[下一页]</a>
-	<a href="<%=basePath%>device_index.jsp">[尾页]</a>
-	</p>
-	
 	</div>
         </td>
       </tr>
@@ -142,5 +115,4 @@ body {
     <td valign="bottom" background="images/mail_rightbg.gif"><img src="images/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
-</s:form>
 </body>

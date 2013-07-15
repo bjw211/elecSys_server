@@ -20,6 +20,7 @@ body {
 -->
 </style>
 <body>
+<s:form action="delete_module">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" valign="top" background="images/mail_leftbg.gif"><img src="images/left-top-right.gif" width="17" height="29" /></td>
@@ -35,35 +36,21 @@ body {
     <td valign="top" bgcolor="#F7F8F9"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td colspan="2" valign="top">&nbsp;</td>
-        
-        
       </tr>
       <tr>
         <td colspan="2" valign="top">
         
            <div >
-    
-		
-		
-		<div align="center">
-			<s:form action="find_module">
-				查询条件：
-				模板名称   <input name="mname" type="text" size="7"/>
-				<input type="submit" value="查   询" />
-			</s:form>
-		</div>
-		
-		<div align="center">
-			<s:form action="delete_module">
-				查询条件：
-				模板号 <input name="mid" type="text" size="7"/>
-				<input type="submit" value="删   除" />
-			</s:form>
-		</div>
-
+          
 	<table align="center" border="1" cellspacing="0" width="80%" cellpadding="0"> 
-
+		
+		<tr>
+			<td colspan="4" align="center">
+				List
+			</td>
+		</tr>
 		<tr bgcolor=#99CC33 class="text" >
+			<td valign="top" align="center" width="5%">选中</td> 
 			<td valign="top" align="center">模板号</td> 
 			<td valign="top" align="center">模板名称</td> 
 			<td valign="top" align="center">检查设备表(Id+Name)</td> 
@@ -71,6 +58,10 @@ body {
 		<s:if test="moduleList.size()>0">
 		<s:iterator value="moduleList" var="ml">
 		<tr>
+			<td>
+				<input type="radio" name="pro" align="middle"
+				value="<s:property value="#ml.mid"/>" />
+			</td>
 			<td width="8%"  valign="top" align="center" class="text">
 				<s:property value="#ml.mid" />
 			</td>
@@ -85,10 +76,14 @@ body {
 		</tr>
 		</s:iterator>
 		</s:if>
-		<s:else><tr><td colspan="3" align="center">没有找到您查询的模板.</td></tr></s:else>
-	</table>
-	
-	
+		<s:else><tr><td colspan="4" align="center">没有找到您查询的模板.</td></tr></s:else>
+		<tr>
+			<td colspan="4" align="center">
+				<input type="submit" value="删   除" />
+			</td>
+		</tr>
+		
+	</table>	
 	<p align="center" style="color:red">
 	当前第1页
 	<a href="<%=basePath%>module_index.jsp">[首页]</a>
@@ -145,4 +140,5 @@ mainTable.tBodies[n].style.display="block";
     <td valign="bottom" background="images/mail_rightbg.gif"><img src="images/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
+</s:form>
 </body>

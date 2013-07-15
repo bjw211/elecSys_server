@@ -23,7 +23,7 @@ import com.google.zxing.common.HybridBinarizer;
 
 public class CDQR {
 	
-	private String path;
+	
 	private BitMatrix byteMatrix;
 	private File file;
 	private Reader reader;
@@ -37,14 +37,17 @@ public class CDQR {
 	
 	// 编码,传入二维码内容，保存到相应的路径生成的二维码png
 	public void encode(String str) {
+
+System.out.println(str);		
 		try {
 			String s[] = new String[5];
-			s = str.split("@");
-			path = "./QRimages/"+s[0]+".png";
-			byteMatrix = new MultiFormatWriter().encode(new String(str.getBytes("UTF-8"),"iso-8859-1"),
+			s = str.split("@");		
+			String path = "d://workspace/elecSys/QRimages/"+s[0]+".png";
+//			String path = "./QRimages/"+s[0]+ ".png";
+			System.out.println(path);
+			byteMatrix = new MultiFormatWriter().encode(new String(s[1].getBytes("UTF-8"),"iso-8859-1"),
 					BarcodeFormat.QR_CODE, 200, 200);
 			file = new File(path);
-			
 			MatrixToImageWriter.writeToFile(byteMatrix, "png", file);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,7 +58,7 @@ public class CDQR {
 	public void decode() {
 		try {
 			reader = new MultiFormatReader();
-			path = "./QRimages/007.png";;
+			String path = "./QRimages/3.png";;
 			file = new File(path);
 			try {
 				image = ImageIO.read(file);
@@ -81,14 +84,14 @@ public class CDQR {
 		}
 	}
 	
-//	public void run(){
-//		String str ="007@设备号:007,设备名称:3#变,设备类型:变压器,设备安放地址:天桥区";
-//		encode(str);
-//		decode();
-//	}
-//	
-//	public static void main(String[] args) {
-//		new CDQR().run();
-//	}
+	public void run(){
+		String str ="7@设备号:7,设备名称:7,设备类型:变压器,设备安放地址:7";
+		encode(str);
+		decode();
+	}
+	
+	public static void main(String[] args) {
+		new CDQR().run();
+	}
 	
 }

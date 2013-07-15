@@ -2,8 +2,15 @@ package com.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.omg.CORBA.Request;
 
 import com.Dao.Task;
 import com.Dao.TaskDAO;
@@ -12,12 +19,13 @@ import com.Dao.WorkerDAO;
 import com.db.HibernateSessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class workerAction extends ActionSupport {
+public class workerAction extends ActionSupport implements ServletRequestAware, ServletResponseAware{
 
 	private List<Worker> workerList;
 	private String wname;
 	private String wid;
-	private String key;
+	private String type;
+	private String age;
 	private static WorkerDAO dao = new WorkerDAO();
 	
 	private TaskDAO tdao = new TaskDAO();
@@ -28,6 +36,10 @@ public class workerAction extends ActionSupport {
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+	
+	
 	public List<Worker> getWorkerList() {
 		return workerList;
 	}
@@ -52,12 +64,28 @@ public class workerAction extends ActionSupport {
 		this.wid = wid;
 	}
 
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
 	public String getWname() {
 		return wname;
 	}
 
 	public void setWname(String wname) {
 		this.wname = wname;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	// 工人的 增删改查
@@ -67,7 +95,18 @@ public class workerAction extends ActionSupport {
 	}
 
 	public String find_worker() {
-		workerList = dao.findByWname(wname);
+System.out.println(type + wname + age);		
+		workerList = dao.findByType(type);
+		int j = workerList.size();
+		for(int i=0;i<j;i++){
+			Worker ww = workerList.get(i);
+			if(ww.getWname().contains(wname) ==  false || Integer.parseInt(ww.getAge()) >= Integer.parseInt(age)){
+				workerList.remove(ww);
+				j --;
+			}else{
+				i++;
+			}
+		}
 		return SUCCESS;
 	}
 
@@ -81,6 +120,7 @@ public class workerAction extends ActionSupport {
 	}
 
 	 public String delete_worker(){
+		wid = request.getParameter("pro");
 		Worker w = dao.findById(wid);
 		if(w == null){
 			workerList = dao.findAll();
@@ -105,17 +145,14 @@ public class workerAction extends ActionSupport {
 			return SUCCESS;
 		}
 	 }
-	 
-	 public String modify_worker(){
-		key = nw.getWid();
-		Worker d = dao.findById(key);
-		dao.delete(d);
-		dao.save(nw);
-		tx.commit();
-		workerList = dao.findAll();
-		session.close();
-			
-		return SUCCESS;
-	 }
 
+	public void setServletRequest(HttpServletRequest arg0) {
+		// TODO Auto-generated method stub
+		request = arg0; 
+	}
+
+	public void setServletResponse(HttpServletResponse arg0) {
+		// TODO Auto-generated method stub
+		response = arg0;
+	}
 }

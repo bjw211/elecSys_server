@@ -22,8 +22,8 @@
 		</action>
 		<action name="find_worker" class="com.action.workerAction"
 			method="find_worker">
-			<result name="success">worker_index.jsp</result>
-			<result name="success">worker_error.jsp</result>
+			<result name="success">find_worker.jsp</result>
+			<result name="error">worker_error.jsp</result>
 		</action>
 		<action name="list_worker" class="com.action.workerAction"
 			method="list_worker">
@@ -40,11 +40,6 @@
 			<result name="success">worker_index.jsp</result>
 			<result name="error">workerDeleteError.jsp</result>
 		</action>
-		<action name="modify_worker" class="com.action.workerAction"
-			method="modify_worker">
-			<result name="success">worker_index.jsp</result>
-			<result name="error">worker_error.jsp</result>
-		</action>
 		<action name="list_fault" class="com.action.faultAction"
 			method="list_fault">
 			<result name="success">fault_index.jsp</result>
@@ -52,9 +47,10 @@
 		</action>
 		<action name="find_fault" class="com.action.faultAction"
 			method="find_fault">
-			<result name="success">fault_index.jsp</result>
+			<result name="success">find_fault.jsp</result>
 			<result name="error">fault_error.jsp</result>
 		</action>
+		
 		<action name="list_device" class="com.action.deviceAction"
 			method="list_device">
 			<result name="success">device_index.jsp</result>
@@ -62,7 +58,7 @@
 		</action>
 		<action name="find_device" class="com.action.deviceAction"
 			method="find_device">
-			<result name="success">device_index.jsp</result>
+			<result name="success">find_device.jsp</result>
 			<result name="error">device_error.jsp</result>
 		</action>
 		<action name="delete_device" class="com.action.deviceAction"
@@ -85,9 +81,6 @@
 			<result name="success">module_index.jsp</result>
 			<result name="error">module_error.jsp</result>
 		</action>
-		
-		
-		
 		<action name="list" class="com.action.deviceAction"
 			method="list">
 			<result name="success">addDeviceofTask.jsp</result>
@@ -97,6 +90,11 @@
 		<action name="list3" class="com.action.deviceAction"
 			method="list3">
 			<result name="success">add_module.jsp</result>
+			<result name="error">device_error.jsp</result>
+		</action>
+		<action name="list4" class="com.action.deviceAction"
+			method="list4">
+			<result name="success">modify_device.jsp</result>
 			<result name="error">device_error.jsp</result>
 		</action>
 		
@@ -126,7 +124,7 @@
 		
 		<action name="find_module" class="com.action.moduleAction"
 			method="find_module">
-			<result name="success">module_index.jsp</result>
+			<result name="success">find_module.jsp</result>
 			<result name="error">module_error.jsp</result>
 		</action>
 		
@@ -143,14 +141,36 @@
 		</action>
 		<action name="find_task" class="com.action.taskAction"
 			method="find_task">
-			<result name="success">task_index.jsp</result>
+			<result name="success">find_task.jsp</result>
 			<result name="error">task_error.jsp</result>
 		</action>
+		
+		<action name="find_task1" class="com.action.taskAction"
+			method="find_task1">
+			<result name="success">modify_task.jsp</result>
+			<result name="error">task_error.jsp</result>
+		</action>
+		
 		<action name="delete_task" class="com.action.taskAction"
 			method="delete_task">
 			<result name="success">task_index.jsp</result>
 			<result name="error">task_error.jsp</result>
 		</action>
+		<action name="modify_task" class="com.action.taskAction"
+			method="delete_task">
+			<result name="success">task_index.jsp</result>
+			<result name="error">task_error.jsp</result>
+		</action>
+		
+		<action name="action1" class="com.action.test"
+			method="action1">
+			<result name="success">index1.jsp</result>
+		</action>
+		<action name="action2" class="com.action.test"
+			method="action2">
+			<result name="success">index1.jsp</result>
+		</action>
+		
 	</package>
 	<!-- Add packages here -->
 	

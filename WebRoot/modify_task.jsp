@@ -7,6 +7,7 @@
 			+ path + "/";
 %>
 
+
 <link href="images/skin.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <style type="text/css">
@@ -32,7 +33,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								增加工人
+								查询任务
 							</div>
 						</td>
 					</tr>
@@ -56,88 +57,118 @@ body {
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
-
-							<form action="add_worker" method="post">
-
-								<table border="1" width="762" cellspacing="0" bordercolorlight="white"
-									bordercolordark="#4BD52B" height="170" align="center">
-									<tr>
-										<td height="44">
-											姓名:
-										</td>
-										<td>
-											<input type="text" name="nw.wname" size="10" />
-											<span>*</span>
-										</td>
-										<td>
-											账号:
-										</td>
-										<td>
-											<input type="text" name="nw.wid" size="10" />
-											<span>*</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td height="40">
-											密码:
-										</td>
-										<td>
-											<input type="text" name="nw.pwd" size="10" />
-											<span>*</span>
-										</td>
-										<td>
-											年龄:
-										</td>
-										<td>
-											<input type="text" name="nw.age" size="10" />
-											<span>*</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td height="40">
-											工作类型:
-										</td>
-										<td>
-											<input type="text" name="nw.type" size="20" />
-											<span>*</span>
-										</td>
-										<td>
-											工作时间:
-										</td>
-										<td>
-											<input type="text" name="nw.wtime" size="20" />
-											<span>*</span>
-										</td>
-									</tr>
-
-									<tr>
-										<td height="44" colspan="1">
-											住址:
-										</td>
-										<td colspan="3">
-											<input type="text" name="nw.address" size="60" />
-											<span>*</span>
-										</td>
-									</tr>
-								</table>
-
-								<p align="center">
-									<input type="submit" value="确   定" />
-									<input type="reset" value="重   置" />
-								</p>
-							</form>
+							该功能需要用户先查询任务，选中任务后点击修改
 						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							<div>
+								<div align="center">
+									<s:form action="find_task1">
+									R任务状态<input name="state" type="text" size="7" />
+									关键字<input name="tname" type="text" size="7" />
+										<input type="submit" value="查   询" />
+									</s:form>
+								</div>
+								<form action="modify_task">
+								<table align="center" border="1" cellspacing="0" width="80%"
+									cellpadding="0">
+									<tr bgcolor=#99CC33 class="text">
+										<td valign="top" align="center">
+											任务号
+										</td>
+										<td valign="top" align="center">
+											任务名称
+										</td>
+										<td valign="top" align="center">
+											布置时间
+										</td>
+										<td valign="top" align="center">
+											截止时间
+										</td>
+										<td valign="top" align="center">
+											结束时间
+										</td>
+										<td valign="top" align="center">
+											任务状态
+										</td>
+										<td valign="top" align="center">
+											工人ID
+										</td>
+										<td valign="top" align="center">
+											工人姓名
+										</td>
+										<td valign="top" align="center">
+											包含设备
+										</td>
+										<td valign="top" align="center">
+											点击修改
+										</td>
+									</tr>
+									<s:if test="taskList.size()>0">
+										<s:iterator value="taskList" var="t">
+											<tr>
+												<td width="8%" valign="top" align="center" class="text">
+													<s:property value="#t.tid" />
+												</td>
 
+												<td width="8%" valign="top" align="center" class="text">
+													<s:property value="#t.tname" />
+												</td>
 
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#t.stime" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#t.deadline" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#t.etime" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#t.state" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#t.worker.wid" />
+												</td>
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#t.worker.wname" />
+												</td>
+
+												<td width="9%" valign="top" align="center" class="text">
+													<s:property value="#t.devices" />
+												</td>
+												<td width="9%" valign="top" align="center" class="text">
+													<input type="submit" width="5%" value="修 改" />
+												</td>
+											</tr>
+										</s:iterator>
+									</s:if>
+									<s:else>
+										<tr>
+											<td colspan="10" align="center">
+												没有找到您查询的任务.
+											</td>
+										</tr>
+									</s:else>
+								</table>
+								</form>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							&nbsp;
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">

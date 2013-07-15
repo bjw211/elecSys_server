@@ -7,9 +7,6 @@
 			+ path + "/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN ，">
-
-
 
 <link href="images/skin.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
@@ -25,7 +22,6 @@ body {
 -->
 </style>
 <body>
-<s:form action="delete_worker">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="17" valign="top" background="images/mail_leftbg.gif">
@@ -37,7 +33,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								工人列表
+								修改设备
 							</div>
 						</td>
 					</tr>
@@ -61,122 +57,98 @@ body {
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
-							<table align="center" border="1" cellspacing="0" width="80%"
-								cellpadding="0">
-								<tr>
-									<td colspan="8" align="center">
-											List
-									</td>
-								</tr>
-								<tr bgcolor=#99CC33 class="text">
-									<td valign="top" align="center">
-										选中
-									</td>
-									<td valign="top" align="center">
-										账号
-									</td>
-									<td valign="top" align="center">
-										姓名
-									</td>
-									<td valign="top" align="center">
-										密码
-									</td>
-									<td valign="top" align="center">
-										年龄
-									</td>
-									<td valign="top" align="center">
-										家庭住址
-									</td>
-									<td valign="top" align="center">
-										工作时间
-									</td>
-									<td valign="top" align="center">
-										工作种类
-									</td>
-								</tr>
-								<s:if test="workerList.size()>0">
-									<s:iterator value="workerList" var="w">
-										<tr>
-											<td>
-												<input type="radio" name="pro" align="middle" 
-													value="<s:property value="#w.wid"/>"/>
-											</td>
-											<td width="8%" valign="top" align="center" class="text">
-												<s:property value="#w.wid" />
-											</td>
+							本次查询提供模糊查询功能，可以查询某个设备是否处理的缺陷
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							<div>
+								<div align="center">
+									<s:form action="find_fault">
+				查询设备缺陷：
+				是否处理<select name="type" >
+				<option value="1">
+												---请选择---
+											</option>
+											<option value="是">
+												是
+											</option>
+											<option value="否">
+												否
+											</option>
+									
+										</select>
+				设备号<input name="did" type="text" size="7" />
+										<input type="submit" value="查   询" />
+									</s:form>
+								</div>
 
-											<td width="10%" valign="top" align="center" class="text">
-												<s:property value="#w.wname" />
-											</td>
+								<table align="center" border="1" cellspacing="0" width="80%"
+									cellpadding="0">
 
-											<td width="10%" valign="top" align="center" class="text">
-												<s:property value="#w.pwd" />
-											</td>
-
-											<td width="10%" valign="top" align="center" class="text">
-												<s:property value="#w.age" />
-											</td>
-
-											<td width="10%" valign="top" align="center" class="text">
-												<s:property value="#w.address" />
-											</td>
-
-											<td width="9%" valign="top" align="center" class="text">
-												<s:property value="#w.wtime" />
-											</td>
-
-											<td width="10%" valign="top" align="center" class="text">
-												<s:property value="#w.type" />
-											</td>
-										</tr>
-									</s:iterator>
-								</s:if>
-								<s:else>
-									<tr>
-										<td colspan="8" align="center">
-											没有找到您查询的工人.
+									<tr bgcolor=#99CC33 class="text">
+										<td valign="top" align="center">
+											缺陷号
+										</td>
+										<td valign="top" align="center">
+											设备号及名称
+										</td>
+										<td valign="top" align="center">
+											缺陷描述
+										</td>
+										<td valign="top" align="center">
+											发现时间
+										</td>
+										<td valign="top" align="center">
+											是否处理
 										</td>
 									</tr>
-								</s:else>
-								<tr>
-									<td colspan="8" align="center">
-											<input type="submit" value="删   除" />
-									</td>
-								</tr>
-							</table>
+									<s:if test="faultList.size()>0">
+										<s:iterator value="faultList" var="f">
+											<tr>
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#f.fid" />
+												</td>
 
-				<!--
-					<div align="center">
-								<s:form action="delete_worker">
-				查询条件：
-				账号    <input name="wid" type="text" size="7" />
-									<input type="submit" value="删   除" />
-								</s:form>
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#f.did" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#f.content" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#f.time" />
+												</td>
+
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#f.solved" />
+												</td>
+											</tr>
+										</s:iterator>
+									</s:if>
+									<s:else>
+										<tr>
+											<td colspan="5" align="center">
+												没有找到相应设备的缺陷。
+											</td>
+										</tr>
+									</s:else>
+								</table>
+
 							</div>
- 				-->
-
-							<p align="center" style="color: red">
-								当前第1页
-								<a href="<%=basePath%>worker_index.jsp">[首页]</a>
-								<a href="<%=basePath%>worker_index.jsp">[上一页]</a>
-								<a href="<%=basePath%>worker_index.jsp">[下一页]</a>
-								<a href="<%=basePath%>worker_index.jsp">[尾页]</a>
-							</p>
-
-							</div>
-
-
-							</p>
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2">
 							&nbsp;
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
@@ -234,12 +206,4 @@ body {
 			</td>
 		</tr>
 	</table>
-	</s:form>
 </body>
-
-
-
-
-
-
-

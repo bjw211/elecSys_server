@@ -11,6 +11,8 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import util.CDQR;
+
 import com.Dao.Device;
 import com.Dao.DeviceDAO;
 import com.Dao.Module;
@@ -22,7 +24,6 @@ import com.Dao.WorkerDAO;
 import com.db.HibernateSessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 
-import util.*;;
 
 public class deviceAction extends ActionSupport implements ServletRequestAware, ServletResponseAware{
 	private List<Device> deviceList;
@@ -37,6 +38,7 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	private String mname;
 	private String de;
 	private String mid;
+	private String address;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 	
@@ -70,6 +72,12 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	public void setDid(String did) {
 		this.did = did;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public Device getDc() {
 		return dc;
 	}
@@ -100,6 +108,16 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	
 	public String find_device(){
 		deviceList = dao.findByType(type);
+		int j = deviceList.size();
+		for(int i=0;i<j;){
+			Device dd= deviceList.get(i);
+			if(dd.getAddress().equals(address) == false){
+				deviceList.remove(dd);
+				j--;
+			}else{
+				i++;
+			}
+		}
 		return SUCCESS;
 	}
 	
@@ -160,6 +178,7 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
 	}
+	
 	//处理新建任务的业务逻辑
 	public String writeTask(){
 		
@@ -197,6 +216,8 @@ System.out.println("add task by device successfully.");
 	}
 	
 	public String delete_device(){
+System.out.println("fuck");		
+		did = request.getParameter("pro");
 		Device d = dao.findById(did);
 		if(d == null){
 			deviceList = dao.findAll();
@@ -211,9 +232,25 @@ System.out.println("add task by device successfully.");
 	}
 	
 	public String add_device(){
+		deviceList = dao.findAll();
+		for(int i=0;i<deviceList.size();i++){
+			if(deviceList.get(i).getDid().equals(dc.getDid())){
+				System.out.println("设备号重复");
+				return ERROR;
+			}
+		}
+		dc.setType(request.getParameter("key"));
 		String str = "设备号:" + dc.getDid() + ",设备名称:" + dc.getDname() + ",设备类型:" + dc.getType() + ",设备安放地址:" + dc.getAddress();
 		new CDQR().encode(dc.getDid()+"@"+str);
 		dc.setQr(str);
+		dc.setType(request.getParameter("key"));
+		if(dc.getType().equals("变压器")){
+			dc.setCheckItem("001油温@002油位@003声响");
+		}else if(dc.getType().equals("开关")){
+			dc.setCheckItem("007隔离开关本体应该完好，三相触头在合闸时应同期到位，有无错位或不同期到位现象@008触头应平整光滑，有无脏污锈蚀变形@009触头弹簧或弹簧片应完好，有无变形损坏");
+		}else{
+			dc.setCheckItem("004瓷套管是否清洁，有无破损裂纹、放电痕迹@005各连接头接触是否良好，有无发热松动@006绝缘拉杆及拉杆绝缘子是否完好无缺陷，连接软铜片是否完整，有无断片");
+		}
 		dao.save(dc);
 		tx.commit();
 		deviceList = dao.findAll();
@@ -221,9 +258,20 @@ System.out.println("add task by device successfully.");
 		return SUCCESS;
 	}
 	
+	public static void main(String[] args) {
+		new CDQR().encode("7@设备号:7,设备名称:007,设备类型:开关,设备安放地址:007");
+	}
+	
+	public String list4(){
+System.out.println("fuck"+did+"\n");		
+		did = request.getParameter("name");
+		dc = dao.findById(did);
+		return SUCCESS;
+	}
+	
 	public String modify_device(){
-		String key = dc.getDid();
-		Device d = dao.findById(key);
+		did = request.getParameter("name");
+		Device d = dao.findById(did);
 		dao.delete(d);
 		dao.save(dc);
 		tx.commit();

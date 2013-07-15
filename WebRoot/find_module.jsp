@@ -1,3 +1,4 @@
+
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
@@ -6,6 +7,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+
 
 <link href="images/skin.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
@@ -32,7 +34,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								修改设备
+								查询模板
 							</div>
 						</td>
 					</tr>
@@ -50,59 +52,97 @@ body {
 				<table width="98%" border="0" align="center" cellpadding="0"
 					cellspacing="0">
 					<tr>
-						<td colspan="2" valign="top" align="center">
-							&nbsp;修改设备信息
+						<td colspan="2" valign="top">
+							&nbsp;
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
-							<form action="modify_device" method="post">
+							本次查询提供模糊查询功能，例如：为方便您查找关于某一地区的所有电力模板，你可以输入关键字来查找，如输入：
+							高新区，您可以得到所有和高新区相关的模板。
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							&nbsp;
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" valign="top">
+							<div>
+								<div align="center">
+									<s:form action="find_module">
+										关键字<input name="mname" type="text" size="7" />
+										<input type="submit" value="查   询" />
+									</s:form>
+								</div>
 
-								<table border="1" width="90%" cellspacing="0"
-									bordercolorlight="white" bordercolordark="#4BD52B"
-									align="center">
-									<tr>
-										<td height="44">
-											设备号:
+								<table align="center" border="1" cellspacing="0" width="80%"
+									cellpadding="0">
+
+									<tr bgcolor=#99CC33 class="text">
+										<td valign="top" align="center">
+											模板号
 										</td>
-										<td>
-											<input type="text" value="#dc.did" name="dc.did" size="10" readonly/>
-											<span>*</span>
+										<td valign="top" align="center">
+											模板名称
 										</td>
-										<td>
-											设备名:
-										</td>
-										<td>
-											<input type="text" name="dc.dname" value="#dc.dname" size="10" />
-											<span>*</span>
+										<td valign="top" align="center">
+											检查设备表(Id+Name)
 										</td>
 									</tr>
+									<s:if test="moduleList.size()>0">
+										<s:iterator value="moduleList" var="ml">
+											<tr>
+												<td width="8%" valign="top" align="center" class="text">
+													<s:property value="#ml.mid" />
+												</td>
 
-									<tr>
-										<td>
-											安放地址:
-										</td>
-										<td>
-											<input type="text" value="#dc.address" name="dc.address" size="20" />
-											<span>*</span>
-										</td>
-									</tr>
+												<td width="10%" valign="top" align="center" class="text">
+													<s:property value="#ml.mname" />
+												</td>
+
+												<td width="30%" valign="top" align="center" class="text">
+													<s:property value="#ml.devices" />
+												</td>
+											</tr>
+										</s:iterator>
+									</s:if>
+									<s:else>
+										<tr>
+											<td colspan="3" align="center">
+												没有找到您查询的模板.
+											</td>
+										</tr>
+									</s:else>
 								</table>
-
-								<p align="center">
-									<input type="submit" value="确   定" />
-									<input type="reset" value="重   置" />
-								</p>
-
-							</form>
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							&nbsp;
 						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							<!--JavaScript部分-->
+							<SCRIPT language=javascript>
+	function secBoard(n) {
+		for (i = 0; i < secTable.cells.length; i++)
+			secTable.cells[i].className = "sec1";
+		secTable.cells[n].className = "sec2";
+		for (i = 0; i < mainTable.tBodies.length; i++)
+			mainTable.tBodies[i].style.display = "none";
+		mainTable.tBodies[n].style.display = "block";
+	}
+</SCRIPT>
+							<!--HTML部分-->
+							<br>
+						</td>
+
+
 					</tr>
 					<tr>
 						<td height="40" colspan="2">
@@ -120,6 +160,8 @@ body {
 							<img src="images/icon-phone.gif" width="17" height="14">
 							开发人员单位：山东大学
 						</td>
+
+
 					</tr>
 				</table>
 			</td>
@@ -140,4 +182,3 @@ body {
 		</tr>
 	</table>
 </body>
-

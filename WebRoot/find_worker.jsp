@@ -25,7 +25,6 @@ body {
 -->
 </style>
 <body>
-<s:form action="delete_worker">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="17" valign="top" background="images/mail_leftbg.gif">
@@ -61,17 +60,25 @@ body {
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
+							本次查询提供模糊查询功能.可以查询名字包含某个字，年龄小于制定值某一类型的工人.<br>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+
+							<div align="center">
+								<s:form action="find_worker">
+				X姓名关键字<input name="wname" type="text" size="7" />
+				年龄小于<input name="age" type="text" size="7" />
+				工种<input name="type" type="text" size="7" />
+				<input type="submit" value="查   询" />
+								</s:form>
+							</div>
+
 							<table align="center" border="1" cellspacing="0" width="80%"
 								cellpadding="0">
-								<tr>
-									<td colspan="8" align="center">
-											List
-									</td>
-								</tr>
+
 								<tr bgcolor=#99CC33 class="text">
-									<td valign="top" align="center">
-										选中
-									</td>
 									<td valign="top" align="center">
 										账号
 									</td>
@@ -97,10 +104,6 @@ body {
 								<s:if test="workerList.size()>0">
 									<s:iterator value="workerList" var="w">
 										<tr>
-											<td>
-												<input type="radio" name="pro" align="middle" 
-													value="<s:property value="#w.wid"/>"/>
-											</td>
 											<td width="8%" valign="top" align="center" class="text">
 												<s:property value="#w.wid" />
 											</td>
@@ -133,53 +136,23 @@ body {
 								</s:if>
 								<s:else>
 									<tr>
-										<td colspan="8" align="center">
+										<td colspan="7" align="center">
 											没有找到您查询的工人.
 										</td>
 									</tr>
 								</s:else>
-								<tr>
-									<td colspan="8" align="center">
-											<input type="submit" value="删   除" />
-									</td>
-								</tr>
 							</table>
-
-				<!--
-					<div align="center">
-								<s:form action="delete_worker">
-				查询条件：
-				账号    <input name="wid" type="text" size="7" />
-									<input type="submit" value="删   除" />
-								</s:form>
-							</div>
- 				-->
-
-							<p align="center" style="color: red">
-								当前第1页
-								<a href="<%=basePath%>worker_index.jsp">[首页]</a>
-								<a href="<%=basePath%>worker_index.jsp">[上一页]</a>
-								<a href="<%=basePath%>worker_index.jsp">[下一页]</a>
-								<a href="<%=basePath%>worker_index.jsp">[尾页]</a>
-							</p>
-
-							</div>
-
-
-							</p>
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2">
 							&nbsp;
 						</td>
-
-
 					</tr>
 					<tr>
 						<td colspan="2" valign="top">
+
+
 							<!--JavaScript部分-->
 							<SCRIPT language=javascript>
 	function secBoard(n) {
@@ -191,11 +164,9 @@ body {
 		mainTable.tBodies[n].style.display = "block";
 	}
 </SCRIPT>
-							<!--HTML部分-->
+
 							<br>
 						</td>
-
-
 					</tr>
 					<tr>
 						<td height="40" colspan="2">
@@ -213,8 +184,6 @@ body {
 							<img src="images/icon-phone.gif" width="17" height="14">
 							开发人员单位：山东大学
 						</td>
-
-
 					</tr>
 				</table>
 			</td>
@@ -234,7 +203,6 @@ body {
 			</td>
 		</tr>
 	</table>
-	</s:form>
 </body>
 
 

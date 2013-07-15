@@ -41,7 +41,7 @@ body {
         <td colspan="2" valign="top"><p class="left_bt" align="center">修改密码</p>
           <form action="modify">
 
-	<table align="center" border="1" width="40%" cellpadding="5" cellspacing="0" bordercolor="#99CC33" >
+	<table align="center" border="1" width="40%" cellpadding="5" cellspacing="0">
 		<tr>
 			<td>请输入账号:</td>
 			<td><input name="aid" type="text"/></td>

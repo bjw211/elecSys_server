@@ -48,7 +48,7 @@ public class acquireDeviceAction extends ActionSupport implements
 		try {
 			this.response.setContentType("text/json;charset=utf-8");
 			this.response.setCharacterEncoding("UTF-8");
-
+System.out.println("收到的设备号" +did);
 			if (did == null) {
 				json.put("message", "\"no such device\"");
 			} else {
@@ -61,7 +61,7 @@ public class acquireDeviceAction extends ActionSupport implements
 					json.put("dname", "\"" + d.getDname() + "\"");
 					json.put("type", d.getType());
 					json.put("address", d.getAddress());
-					json.put("qr", d.getQr());
+					json.put("qr", "\"" + d.getQr() + "\"");
 					String Items = d.getCheckItem();
 					String s[] = new String[20];
 					s = Items.split("@");

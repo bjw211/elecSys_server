@@ -84,8 +84,18 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		return SUCCESS;
 	}
 	
-	public String find_module(){
-		moduleList = dao.findByMname(mname);
+	public String find_module(){	
+		moduleList = dao.findAll();
+		int j = moduleList.size();
+		for(int i=0;i<j;){
+			Module m = moduleList.get(i);
+			if(m.getMname().contains(mname) == false){				
+				moduleList.remove(m);
+				j--;
+			}else{
+				i++;
+			}
+		}
 		return SUCCESS;
 	}
 	
@@ -150,10 +160,8 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 	}
 	
 	//处理新建任务的业务逻辑
-	public String writeTask(){
-System.out.println("fuck");		
-		Worker w = wdao.findById(wid);
-System.out.println(wid + "fuck");		
+	public String writeTask1(){	
+		Worker w = wdao.findById(wid);		
 		if(w == null){
 			System.out.println("no such worker.&&&&");			
 			return ERROR;
@@ -184,6 +192,7 @@ System.out.println(wid + "fuck");
 	}
 	
 	public String delete_module(){
+		mid = request.getParameter("pro");		
 		mn = dao.findById(mid);
 		if(mn != null){
 			dao.delete(mn);
@@ -192,6 +201,7 @@ System.out.println(wid + "fuck");
 			session.close();
 			return SUCCESS;
 		}else{
+			moduleList = dao.findAll();
 			return ERROR;
 		}
 	}

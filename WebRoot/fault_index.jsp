@@ -34,23 +34,13 @@ body {
     <td valign="top" bgcolor="#F7F8F9"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td colspan="2" valign="top">&nbsp;</td>
-        
-        
       </tr>
       <tr>
         <td colspan="2" valign="top">
       	    <div >
-		
-		<div align="center">
-			<s:form action="find_fault">
-				查询设备缺陷：
-				是否处理<input name="solved" type="text" size="7"/>
-				<input type="submit" value="查   询" />
-			</s:form>
-		</div>
 
 	<table align="center" border="1" cellspacing="0" width="80%" cellpadding="0"> 
-
+		<tr><td colspan="5" align="center">List</td></tr>
 		<tr bgcolor=#99CC33 class="text" >
 			<td valign="top" align="center">缺陷号</td> 
 			<td valign="top" align="center">设备号及名称</td> 
@@ -83,7 +73,7 @@ body {
 		</tr>
 		</s:iterator>
 		</s:if>
-		<s:else><tr><td colspan="4" align="center">没有找到相应设备的缺陷。</td></tr></s:else>
+		<s:else><tr><td colspan="5" align="center">没有找到相应设备的缺陷。</td></tr></s:else>
 	</table>
 	
 	
