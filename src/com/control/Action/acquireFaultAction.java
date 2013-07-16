@@ -64,10 +64,21 @@ public class acquireFaultAction extends ActionSupport implements
 			this.response.setContentType("text/json;charset=utf-8");
 			this.response.setCharacterEncoding("UTF-8");
 
+			System.out.println(did);
 			if (did == null) {
 				result.put("message", "\"no such device\"");
 			} else {
-				flist = fdao.findByDid(did);
+				flist = fdao.findAll();
+				int j = flist.size();
+				for(int i=0;i<j;){
+					Fault tt = flist.get(i);
+					if(tt.getDid().substring(0, 1).equals(did) == false){
+						flist.remove(tt);
+						j--;
+					}else{
+						i++;
+					}
+				}
 
 				if (flist.size() <= 0) {
 					result.put("message", "\"no such device\"");

@@ -104,7 +104,7 @@ System.out.println(tid + did + result + "\n");
 				str = dec.split("@");
 				boolean flag = false;
 				for (int i = 1; i < str.length; i++) {
-					if (str[i].substring(0, 3).equals(did)) {
+					if (str[i].substring(0, 1).equals(did)) {
 						flag = true;
 					}
 				}
