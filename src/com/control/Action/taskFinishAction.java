@@ -44,7 +44,7 @@ public class taskFinishAction extends ActionSupport implements
 	private Map<String, String> json = new HashMap<String, String>();
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
-	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 
 	  /**

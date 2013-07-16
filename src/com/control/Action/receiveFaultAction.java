@@ -47,7 +47,7 @@ public class receiveFaultAction extends ActionSupport implements
 	private String solved = "·ñ";
 	private FaultDAO dao = new FaultDAO();
 	private DeviceDAO ddao = new DeviceDAO();
-	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 	private Map<String, String> ms = new HashMap<String, String>();

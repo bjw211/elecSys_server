@@ -38,7 +38,7 @@ public class acquireFaultAction extends ActionSupport implements
 	private ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 	private Map<String, String> result = new HashMap<String, String>();
 	private List<Fault> flist;
-	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 
 	  /**

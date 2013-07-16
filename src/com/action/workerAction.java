@@ -122,8 +122,9 @@ public class workerAction extends ActionSupport implements ServletRequestAware, 
 	public String find_worker() {
 		
 		workerList = dao.findByType(type);
+		
 		int j = workerList.size();
-		for(int i=0;i<j;i++){
+		for(int i=0;i<j;){
 			Worker ww = workerList.get(i);
 			if(ww.getWname().contains(wname) ==  false || Integer.parseInt(ww.getAge()) >= Integer.parseInt(age)){
 				workerList.remove(ww);

@@ -221,11 +221,11 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 	¡¡¡¡¡¡ */
 	public String delete_module(){
 		mid = request.getParameter("pro");		
-		mn = dao.findById(mid);
-		if(mn != null){
-			dao.delete(mn);
-			moduleList = dao.findAll();
+		Module me = dao.findById(mid);
+		if(me != null){
+			dao.delete(me);
 			tx.commit();
+			moduleList = dao.findAll();
 			session.close();
 			return SUCCESS;
 		}else{

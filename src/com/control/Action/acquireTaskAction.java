@@ -45,7 +45,7 @@ public class acquireTaskAction extends ActionSupport implements
 	private TaskDAO dao = new TaskDAO();
 	private WorkerDAO wdao = new WorkerDAO();
 	private List<Task> taskList;
-	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 
 	  /**
@@ -182,7 +182,11 @@ public class acquireTaskAction extends ActionSupport implements
 								json.put("tname", tname);
 								json.put("stime", df.format(stime));
 								json.put("deadline", df.format(deadline));
-								json.put("etime", df.format(etime));
+								if(etime != null){
+									json.put("etime", df.format(etime));
+								}else{
+									json.put("etime", "0000-00-00");
+								}
 								json.put("count", count);
 								list.add(json);
 							}
@@ -204,7 +208,7 @@ public class acquireTaskAction extends ActionSupport implements
 									json.put("tid", tid);
 									json.put("tname", tname);
 									json.put("stime", df.format(stime));
-									json.put("deadline", df.format(deadline));
+									json.put("deadline", "0000-00-00");
 									json.put("etime", df.format(etime));
 									json.put("count", count);
 									list.add(json);
@@ -249,7 +253,7 @@ public class acquireTaskAction extends ActionSupport implements
 									json.put("tname", tname);
 									json.put("stime", df.format(stime));
 									json.put("deadline", df.format(deadline));
-									json.put("etime", df.format(etime));
+									json.put("etime", "0000-00-00");
 									json.put("count", count);
 									list.add(json);
 								}

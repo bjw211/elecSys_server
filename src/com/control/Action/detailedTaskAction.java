@@ -40,7 +40,7 @@ public class detailedTaskAction extends ActionSupport implements
 	private DeviceDAO ddao = new DeviceDAO();
 	private List<Map<String, String>> devicelite = new ArrayList<Map<String, String>>();
 	private Map<String, String> json = new HashMap<String, String>();
-	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 
 	  /**
@@ -107,7 +107,11 @@ public class detailedTaskAction extends ActionSupport implements
 				json.put("tname", t.getTname());
 				json.put("stime", df.format(t.getStime()));
 				json.put("deadline", df.format(t.getDeadline()));
-				json.put("etime", df.format(t.getEtime()));
+				if(t.getEtime() != null){ 
+					json.put("etime", df.format(t.getEtime()));
+				}else{
+					json.put("etime", "0000-00-00");
+				}
 				json.put("state", t.getState());
 				devices = t.getDevices();
 				count = devices.substring(0, 1);

@@ -217,6 +217,7 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 		session.close();
 		System.out.println("add module successfully.");		
 		
+		
 		return SUCCESS;
 	}
 	
