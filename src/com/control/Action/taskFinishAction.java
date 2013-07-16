@@ -78,7 +78,7 @@ public class taskFinishAction extends ActionSupport implements
 	　　　 * 
 	　　　 * @param String tid
 	　　　 * @return json
-		* 服务器返回给andriod客户端
+		* 服务器返回给andriod客户端任务是否完成
 	　　　 *
 	　　　 */
 	public void checkTask() {
@@ -87,7 +87,6 @@ public class taskFinishAction extends ActionSupport implements
 			this.response.setCharacterEncoding("UTF-8");
 
 			request.getParameter("tid");
-System.out.println(tid + "fuck"+"\n");
 			Task t = tdao.findById(tid);
 			if (t == null) {
 				result = "\"no such task\"";
@@ -101,8 +100,7 @@ System.out.println(tid + "fuck"+"\n");
 					if(rlist.get(i).getId().getTid().equals(tid)){
 						c++;
 					}
-				}
-System.out.println(c + "fuck" +count + "\n");				
+				}				
 				if (c == count) {
 					result = "success";
 					

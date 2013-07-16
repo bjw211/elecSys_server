@@ -201,6 +201,9 @@
 		<action name="checkTask" class="com.control.Action.taskFinishAction" method="checkTask">
 			<result type="json"/>
 		</action>
+		<action name="checkQR" class="com.control.Action.qrAction" method="checkQR">
+			<result type="json"/>
+		</action>
 		
 	</package>
 	
