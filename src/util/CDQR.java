@@ -1,5 +1,13 @@
 package util;
 
+/**
+ * 名称: CDQR
+ * 描述: 该类用于二维码的生成和解码，使用google的开源API合成
+ * 类型: JAVA
+ * 最近修改时间: 2013、07、15
+ * @author 李昌健
+ */ 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +43,14 @@ public class CDQR {
 	private String resultStr;
 	
 	
-	// 编码,传入二维码内容，保存到相应的路径生成的二维码png
+		/**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String str
+	　　　 * @return QR code image
+		* 编码,传入二维码内容，保存到相应的路径生成的二维码png
+	　　　 *
+	　　　 */
 	public void encode(String str) {
 
 System.out.println(str);		
@@ -54,7 +69,14 @@ System.out.println(str);
 		}
 	}
 
-	// 解码
+		/**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param QR code images
+	　　　 * @return String str
+		* 解码,传入二维码图片，获得相应的二维码的内容
+	　　　 *
+	　　　 */
 	public void decode() {
 		try {
 			reader = new MultiFormatReader();
@@ -80,18 +102,28 @@ System.out.println(str);
 			}
 
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 		}
 	}
+
 	
-	public void run(){
-		String str ="7@设备号:7,设备名称:7,设备类型:变压器,设备安放地址:7";
-		encode(str);
-		decode();
-	}
+		/**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param id  String str
+	　　　 * @return QR code image
+		* 用于测试	
+	　　　 *
+	　　　 */
 	
-	public static void main(String[] args) {
-		new CDQR().run();
-	}
+//	public void run(){
+//		String str ="7@设备号:7,设备名称:7,设备类型:变压器,设备安放地址:7";
+//		encode(str);
+//		decode();
+//	}
+//	
+//	public static void main(String[] args) {
+//		new CDQR().run();
+//	}
 	
 }

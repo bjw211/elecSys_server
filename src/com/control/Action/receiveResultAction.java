@@ -1,5 +1,12 @@
 package com.control.Action;
 
+/**
+ * 名称: receiveResultAction
+ * 描述: 该类用于处理服务器接收设备
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,9 +42,15 @@ public class receiveResultAction extends ActionSupport implements
 	private JSONObject jsonObject;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
-
 	private TaskDAO tdao = new TaskDAO();
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getTid() {
 		return tid;
 	}
@@ -70,6 +83,7 @@ public class receiveResultAction extends ActionSupport implements
 		this.value = value;
 	}
 
+	/**从父类继承的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0;
@@ -80,6 +94,15 @@ public class receiveResultAction extends ActionSupport implements
 		response = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did tid content
+	　　　 * @return json
+		* 服务器记录设备检查信息并回传相应的信息
+	　　　 *
+	　　　 */
 	public void writeResult() {
 		try {
 
@@ -92,8 +115,6 @@ public class receiveResultAction extends ActionSupport implements
 			tid = jsonObject.getString("tid");
 			did = jsonObject.getString("did");
 			ItemList = jsonObject.getJSONArray("clauselist");
-
-System.out.println(tid + did + result + "\n");
 			
 			Task t = tdao.findById(tid);
 			if (t == null) {
@@ -111,8 +132,7 @@ System.out.println(tid + did + result + "\n");
 
 				if (!flag) {
 					feadBack = "\"no such device\"";
-				} else {
-System.out.println(ItemList.length()+ "\n");					
+				} else {					
 					for (int i = 0; i < ItemList.length(); i++) {
 						Result rt = new Result();
 						ResultId id = new ResultId();
@@ -122,7 +142,7 @@ System.out.println(ItemList.length()+ "\n");
 						rt.setId(id);
 						rt.setValue(ItemList.getJSONObject(i).getString("value"));
 						dao.merge(rt);
-System.out.println("log the result in the result table");						
+						System.out.println("log the result in the result table");						
 					}
 					
 					tx.commit();
@@ -131,7 +151,7 @@ System.out.println("log the result in the result table");
 				}
 			}
 			
-			
+			/**f发送json**/
 			response.getWriter().write(feadBack);
 			
 		} catch (Exception e) {

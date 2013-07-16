@@ -1,5 +1,12 @@
 package com.control.Action;
 
+/**
+ * 名称: acquireDeviceAction
+ * 描述: 该类用于处理客户端获取设备的请求
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +33,12 @@ public class acquireDeviceAction extends ActionSupport implements
 	private List<Map<String, String>> clause = new ArrayList<Map<String, String>>();
 	private Map<String, String> json = new HashMap<String, String>();
 
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getDid() {
 		return did;
 	}
@@ -33,7 +46,9 @@ public class acquireDeviceAction extends ActionSupport implements
 	public void setDid(String did) {
 		this.did = did;
 	}
-
+	
+	
+	/**从父类继承的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0;
@@ -44,11 +59,21 @@ public class acquireDeviceAction extends ActionSupport implements
 		response = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did
+	　　　 * @return json
+		* 服务器返回给andriod设备的详细信息
+	　　　 *
+	　　　 */
 	public void getDevice() {
 		try {
 			this.response.setContentType("text/json;charset=utf-8");
 			this.response.setCharacterEncoding("UTF-8");
-System.out.println("收到的设备号" +did);
+			
+			System.out.println("收到的设备号" +did);
 			if (did == null) {
 				json.put("message", "\"no such device\"");
 			} else {

@@ -1,5 +1,13 @@
 package com.control.Action;
 
+
+/**
+ * 名称: receiveFaultAction
+ * 描述: 该类用于处理服务器接收设备缺陷信息并记录的请求
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -46,6 +54,13 @@ public class receiveFaultAction extends ActionSupport implements
 	private InputStream in;
 	private int count;
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getDid() {
 		return did;
 	}
@@ -86,6 +101,7 @@ public class receiveFaultAction extends ActionSupport implements
 		return fid;
 	}
 
+	/**从父类继承的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		this.request = arg0;
@@ -96,6 +112,15 @@ public class receiveFaultAction extends ActionSupport implements
 		this.response = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did content
+	　　　 * @return json
+		* 服务器记录缺陷信息并回传相应的信息
+	　　　 *
+	　　　 */
 	public void writeFault() {
 		try {
 
@@ -146,6 +171,7 @@ public class receiveFaultAction extends ActionSupport implements
 		}
 	}
 
+	/**计算FID**/
 	public void calFid() {
 		List<Fault> flist = dao.findAll();
 		fid = Integer.toString(flist.size()+1);

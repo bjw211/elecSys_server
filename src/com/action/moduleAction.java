@@ -1,5 +1,12 @@
 package com.action;
 
+/**
+ * 名称: moduleAction
+ * 描述: 该类用于处理服务器端模板的处理
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +20,6 @@ import org.hibernate.Transaction;
 
 import com.Dao.Device;
 import com.Dao.DeviceDAO;
-import com.Dao.Log;
 import com.Dao.LogDAO;
 import com.Dao.Module;
 import com.Dao.ModuleDAO;
@@ -41,8 +47,22 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 	private HttpServletResponse response;
 	
 	private String nmid;
-	
-	
+	private String tid;
+	private Date stime;
+	private String state = "UNDO";
+	private String wid;
+	private String dec;
+	private Date deadline;
+	private String tname;
+	private WorkerDAO wdao = new WorkerDAO();
+	private TaskDAO tdao = new TaskDAO();
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getMid() {
 		return mid;
 	}
@@ -74,53 +94,6 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 	public void setdList(List<Device> dList) {
 		this.dList = dList;
 	}
-	public String list_module(){
-		moduleList = dao.findAll();
-		return SUCCESS;
-	}
-	
-	public String list2(){
-		moduleList = dao.findAll();
-		return SUCCESS;
-	}
-	
-	public String find_module(){	
-		moduleList = dao.findAll();
-		int j = moduleList.size();
-		for(int i=0;i<j;){
-			Module m = moduleList.get(i);
-			if(m.getMname().contains(mname) == false){				
-				moduleList.remove(m);
-				j--;
-			}else{
-				i++;
-			}
-		}
-		return SUCCESS;
-	}
-	
-	public String getModuleElement(){
-		String[] str =request.getParameterValues("pro");
-		
-		ldao.findById("001").setValue(str[0]);
-		tx.commit();
-		session.close();
-		
-		System.out.println("log in the log table successfully.");		
-		return SUCCESS;
-	}
-	
-	
-	private String tid;
-	private Date stime;
-	private String state = "UNDO";
-	private String wid;
-	private String dec;
-	private Date deadline;
-	private String tname;
-	private WorkerDAO wdao = new WorkerDAO();
-	private TaskDAO tdao = new TaskDAO();
-	
 	public Date getStime() {
 		return stime;
 	}
@@ -152,21 +125,68 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		this.tname = tname;
 	}
 
-	public String select(){
-		
-		nmid = ldao.findById("001").getValue();
-		dec = dao.findById(nmid).getDevices();
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param 
+	　　　 * @return moduletList
+		* 获取所有的设备
+	　　　 *
+	　　　 */
+	public String list_module(){
+		moduleList = dao.findAll();
+		return SUCCESS;
+	}
+	public String list2(){
+		moduleList = dao.findAll();
 		return SUCCESS;
 	}
 	
-	//处理新建任务的业务逻辑
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String mname
+	　　　 * @return moduleList
+		* 关键字查找，不符合要求的设备从列表中删除
+	　　　 *
+	　　　 */
+	public String find_module(){	
+		moduleList = dao.findAll();
+		int j = moduleList.size();
+		
+		/**迭代列表，不符合条件的删除**/
+		for(int i=0;i<j;){
+			Module m = moduleList.get(i);
+			if(m.getMname().contains(mname) == false){				
+				moduleList.remove(m);
+				j--;
+			}else{
+				i++;
+			}
+		}
+		return SUCCESS;
+	}
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String wid tid state tname stime deadline
+	　　　 * @return moduleList
+		* 写入数据库，处理通过模板增加任务的业务逻辑
+	　　　 *
+	　　　 */
 	public String writeTask1(){	
+		
 		Worker w = wdao.findById(wid);		
+		
+		/**worker为null**/
 		if(w == null){
 			System.out.println("no such worker.&&&&");			
 			return ERROR;
 		}else{
 			
+			/**计算TID**/
 			calTid();
 			Task nt = new Task();
 			nt.setTid(tid);
@@ -176,12 +196,11 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 			nt.setDeadline(deadline);
 			nt.setStime(stime);
 			
-			
 			nmid = ldao.findById("001").getValue();
 			dec = dao.findById(nmid).getDevices();
-			System.out.println(nmid);
 			nt.setDevices(dao.findById(nmid).getDevices());
 			
+			/**写入数据库**/
 			tdao.save(nt);
 			tx.commit();
 			session.close();
@@ -191,6 +210,15 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		}
 	}
 	
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String mid
+	　　　 * @return moduleList
+		* 写入数据库，处理删除模板的业务逻辑
+	　　　 *
+	　　　 */
 	public String delete_module(){
 		mid = request.getParameter("pro");		
 		mn = dao.findById(mid);
@@ -206,6 +234,8 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		}
 	}
 	
+	
+	/**继承自父类的方法需要实现**/
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		response = arg0;
@@ -214,7 +244,15 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 		// TODO Auto-generated method stub
 		request = arg0;
 	}
-	
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did 
+	　　　 * @return deviceList
+		* 计算任务号
+	　　　 *
+	　　　 */
 	public void calTid(){
 		List<Task> t;
 		t = tdao.findAll();

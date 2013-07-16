@@ -1,5 +1,12 @@
 package com.control.Action;
 
+/**
+ * 名称: taskFinishAction
+ * 描述: 该类用于处理客户端结束执行任务的请求
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +46,13 @@ public class taskFinishAction extends ActionSupport implements
 	private Transaction tx = session.beginTransaction();
 	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getTid() {
 		return tid;
 	}
@@ -47,6 +61,7 @@ public class taskFinishAction extends ActionSupport implements
 		this.tid = tid;
 	}
 
+	/**从父类继承的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0;
@@ -57,6 +72,15 @@ public class taskFinishAction extends ActionSupport implements
 		response = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String tid
+	　　　 * @return json
+		* 服务器返回给andriod客户端
+	　　　 *
+	　　　 */
 	public void checkTask() {
 		try {
 			this.response.setContentType("text/json;charset=utf-8");
@@ -83,8 +107,7 @@ public class taskFinishAction extends ActionSupport implements
 					
 					Date d = new Date();
 					t.setState("DONE");
-					t.setEtime(d);
-System.out.println(d.toString());					
+					t.setEtime(d);					
 					json.put("etime", df.format(d).toString());
 					
 					tdao.merge(t);
@@ -97,6 +120,7 @@ System.out.println(d.toString());
 				}
 			}
 			
+			/**发送json**/
 			json.put("message", result);
 			byte[] jsonBytes = json.toString().getBytes("utf-8");
 			response.setContentLength(jsonBytes.length);

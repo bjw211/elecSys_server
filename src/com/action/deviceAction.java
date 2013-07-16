@@ -1,5 +1,12 @@
 package com.action;
 
+/**
+ * 名称: deviceAction
+ * 描述: 该类用于处理服务器端设备的增删改查
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +33,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 
 public class deviceAction extends ActionSupport implements ServletRequestAware, ServletResponseAware{
+	
 	private List<Device> deviceList;
 	private DeviceDAO dao = new DeviceDAO();
 	private ModuleDAO mdao = new ModuleDAO();
@@ -42,11 +50,47 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
 	
-	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	
+	private String tid;
+	private Date stime;
+	private String state = "UNDO";
+	private String wid;
+	private String dec;
+	private Date deadline;
+	private String tname;
 	
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
+	public Date getStime() {
+		return stime;
+	}
+	public void setStime(Date stime) {
+		this.stime = stime;
+	}
+	public String getWid() {
+		return wid;
+	}
+	public void setWid(String wid) {
+		this.wid = wid;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+	public Date getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
 	
 	public List<Device> getDeviceList() {
 		return deviceList;
@@ -90,11 +134,20 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param 
+	　　　 * @return deviceList
+		* 获取所有的设备
+	　　　 *
+	　　　 */
+	
 	public String list_device(){
 		deviceList = dao.findAll();
 		return SUCCESS;
 	}
-	
 	
 	public String list(){
 		deviceList = dao.findAll();
@@ -106,9 +159,20 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 		return SUCCESS;
 	}
 	
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String type address
+	　　　 * @return deviceList
+		* 关键字查找，不符合要求的设备从列表中删除
+	　　　 *
+	　　　 */
+	
 	public String find_device(){
 		deviceList = dao.findByType(type);
 		int j = deviceList.size();
+		
+		/**迭代所有的设备**/
 		for(int i=0;i<j;){
 			Device dd= deviceList.get(i);
 			if(dd.getAddress().equals(address) == false){
@@ -121,8 +185,17 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 		return SUCCESS;
 	}
 	
-	//写入数据库，处理业务逻辑
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String mid mname devices
+	　　　 * @return deviceList
+		* 写入数据库，处理增加模板的业务逻辑
+	　　　 *
+	　　　 */
 	public String getDeviceElement(){
+		
+		/*计算mid*/
 		calMid();
 		
 		Module m = new Module();
@@ -138,6 +211,7 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 		}
 		m.setDevices(de);
 		
+		/**写入数据库**/
 		mdao.save(m);
 		tx.commit();
 		session.close();
@@ -146,45 +220,20 @@ public class deviceAction extends ActionSupport implements ServletRequestAware, 
 		return SUCCESS;
 	}
 	
-	private String tid;
-	private Date stime;
-	private String state = "UNDO";
-	private String wid;
-	private String dec;
-	private Date deadline;
-	private String tname;
-	
-	public Date getStime() {
-		return stime;
-	}
-	public void setStime(Date stime) {
-		this.stime = stime;
-	}
-	public String getWid() {
-		return wid;
-	}
-	public void setWid(String wid) {
-		this.wid = wid;
-	}
-	public String getTname() {
-		return tname;
-	}
-	public void setTname(String tname) {
-		this.tname = tname;
-	}
-	public Date getDeadline() {
-		return deadline;
-	}
-	public void setDeadline(Date deadline) {
-		this.deadline = deadline;
-	}
-	
-	//处理新建任务的业务逻辑
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String wid tid state tname stime
+	　　　 * @return deviceList
+		* 写入数据库，处理通过设备新建任务的业务逻辑
+	　　　 *
+	　　　 */
 	public String writeTask(){
 		
 		Worker w = wdao.findById(wid);
 		if(w == null){
-System.out.println("no such worker.");			
+			System.out.println("no such worker.");			
 			return ERROR;
 		}else{	
 			calTid();
@@ -206,19 +255,32 @@ System.out.println("no such worker.");
 			
 			nt.setDevices(dec);
 			
+			/**写入数据库保存数据**/
 			tdao.save(nt);
 			tx.commit();
 			session.close();
-System.out.println("add task by device successfully.");			
+			
+			System.out.println("add task by device successfully.");			
 			
 			return SUCCESS;
 		}
 	}
 	
+	
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did 
+	　　　 * @return deviceList
+		* 写入数据库，处理删除设备的业务逻辑
+	　　　 *
+	　　　 */
 	public String delete_device(){
-System.out.println("fuck");		
+		
 		did = request.getParameter("pro");
 		Device d = dao.findById(did);
+		
+		/**不存在该设备**/
 		if(d == null){
 			deviceList = dao.findAll();
 			return ERROR;
@@ -231,7 +293,18 @@ System.out.println("fuck");
 		}
 	}
 	
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did 
+	　　　 * @return deviceList
+		* 写入数据库，处理增加设备的业务逻辑
+	　　　 *
+	　　　 */
 	public String add_device(){
+		
+		/**迭代设备列表，获取所有的设备并筛选**/
 		deviceList = dao.findAll();
 		for(int i=0;i<deviceList.size();i++){
 			if(deviceList.get(i).getDid().equals(dc.getDid())){
@@ -240,9 +313,13 @@ System.out.println("fuck");
 			}
 		}
 		dc.setType(request.getParameter("key"));
+		
+		/**生成二维码，保存二维码的图片**/
 		String str = "设备号:" + dc.getDid() + ",设备名称:" + dc.getDname() + ",设备类型:" + dc.getType() + ",设备安放地址:" + dc.getAddress();
 		new CDQR().encode(dc.getDid()+"@"+str);
 		dc.setQr(str);
+		
+		/**根据设备类型设置检查条目**/
 		dc.setType(request.getParameter("key"));
 		if(dc.getType().equals("变压器")){
 			dc.setCheckItem("001油温@002油位@003声响");
@@ -258,17 +335,21 @@ System.out.println("fuck");
 		return SUCCESS;
 	}
 	
-	public static void main(String[] args) {
-		new CDQR().encode("7@设备号:7,设备名称:007,设备类型:开关,设备安放地址:007");
-	}
 	
-	public String list4(){
-System.out.println("fuck"+did+"\n");		
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did 
+	　　　 * @return deviceList
+		* 写入数据库，处理修改设备的业务逻辑
+	　　　 *
+	　　　 */
+	public String list4(){	
 		did = request.getParameter("name");
 		dc = dao.findById(did);
 		return SUCCESS;
 	}
-	
 	public String modify_device(){
 		did = request.getParameter("name");
 		Device d = dao.findById(did);
@@ -280,6 +361,8 @@ System.out.println("fuck"+did+"\n");
 			
 		return SUCCESS;
 	 }
+	
+	/**继承自父类的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0;
@@ -289,13 +372,21 @@ System.out.println("fuck"+did+"\n");
 		response = arg0;
 	}
 	
-	//计算模板号
+	
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did 
+	　　　 * @return deviceList
+		* 计算模板号、任务号
+	　　　 *
+	　　　 */
 	public void calMid(){
 		List<Module> l;
 		l = mdao.findAll();
 		mid = Integer.toString(Integer.parseInt(l.get(l.size()-1).getMid())+1);
 	}
-	
 	public void calTid(){
 		List<Task> t;
 		t = tdao.findAll();

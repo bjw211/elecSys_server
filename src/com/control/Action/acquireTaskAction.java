@@ -1,5 +1,12 @@
 package com.control.Action;
 
+/**
+ * 名称: acquireTaskAction
+ * 描述: 该类用于处理客户端获取任务的请求
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +47,13 @@ public class acquireTaskAction extends ActionSupport implements
 	private List<Task> taskList;
 	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getWid() {
 		return wid;
 	}
@@ -112,6 +126,7 @@ public class acquireTaskAction extends ActionSupport implements
 		this.deadline = deadline;
 	}
 
+	/**从父类继承的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0;
@@ -122,6 +137,15 @@ public class acquireTaskAction extends ActionSupport implements
 		response = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String tid wid
+	　　　 * @return json
+		* 服务器返回给andriod客户端某个工人的任务
+	　　　 *
+	　　　 */
 	public void Acquire() {
 		try {
 			this.response.setContentType("text/json;charset=utf-8");
@@ -131,7 +155,8 @@ public class acquireTaskAction extends ActionSupport implements
 			Map<String, String> result = new HashMap<String, String>();
 			Task t;
 			taskList = dao.findAll();
-
+			
+			/**工人不存在**/
 			if (wid == null) {
 				result.put("message", "\"no such worker\"");
 			} else {
@@ -140,7 +165,7 @@ public class acquireTaskAction extends ActionSupport implements
 					result.put("message", "\"no such worker\"");
 				} else {
 					if (time == null) {
-						// 所有任务
+						/**所有任务**/
 						for (int i = 0; i < taskList.size(); i++) {
 							Map<String, String> json = new HashMap<String, String>();
 							t = taskList.get(i);
@@ -163,7 +188,7 @@ public class acquireTaskAction extends ActionSupport implements
 							}
 						}
 					} else {
-						// 布置时间比time晚的
+						/**布置时间比time晚的**/
 						if (state.equals("undo")) {
 							for (int i = 0; i < taskList.size(); i++) {
 								Map<String, String> json = new HashMap<String, String>();
@@ -185,7 +210,8 @@ public class acquireTaskAction extends ActionSupport implements
 									list.add(json);
 								}
 							}
-						} else if (state.equals("done")) { // 完成时间比time晚的
+						} else if (state.equals("done")) { 
+							/**完成时间比time晚的**/
 							for (int i = 0; i < taskList.size(); i++) {
 								Map<String, String> json = new HashMap<String, String>();
 								t = taskList.get(i);
@@ -206,7 +232,8 @@ public class acquireTaskAction extends ActionSupport implements
 									list.add(json);
 								}
 							}
-						} else { // deadline 比time晚的
+						} else { 
+							/**deadline 比time晚的**/
 							for (int i = 0; i < taskList.size(); i++) {
 								Map<String, String> json = new HashMap<String, String>();
 								t = taskList.get(i);
@@ -234,6 +261,8 @@ public class acquireTaskAction extends ActionSupport implements
 
 				result.put("tasklist", list.toString());
 			}
+			
+			/**发送json数据**/
 			byte[] jsonBytes = result.toString().getBytes("utf-8");
 			response.setContentLength(jsonBytes.length);
 			response.getOutputStream().write(jsonBytes);

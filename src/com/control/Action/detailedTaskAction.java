@@ -1,5 +1,12 @@
 package com.control.Action;
 
+/**
+ * 名称: detailedTaskAction
+ * 描述: 该类用于处理客户端获取详细任务的请求
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +34,6 @@ public class detailedTaskAction extends ActionSupport implements
 	private HttpServletResponse response;
 
 	private String tid; // 任务ID
-
 	private String count; // 设备数量
 	private String devices;
 	private TaskDAO dao = new TaskDAO();
@@ -36,6 +42,13 @@ public class detailedTaskAction extends ActionSupport implements
 	private Map<String, String> json = new HashMap<String, String>();
 	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getTid() {
 		return tid;
 	}
@@ -60,6 +73,7 @@ public class detailedTaskAction extends ActionSupport implements
 		this.devices = devices;
 	}
 
+	/**从父类继承的方法需要实现**/
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		response = arg0;
@@ -70,6 +84,15 @@ public class detailedTaskAction extends ActionSupport implements
 		request = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String tid
+	　　　 * @return json
+		* 服务器返回给andriod客户端某个工人的任务的详细信息
+	　　　 *
+	　　　 */
 	public void getTask() {
 
 		try {
@@ -77,6 +100,8 @@ public class detailedTaskAction extends ActionSupport implements
 			this.response.setCharacterEncoding("UTF-8");
 
 			Task t = dao.findById(tid);
+			
+			/**任务不为空**/
 			if (t != null) {
 				json.put("message", "success");
 				json.put("tname", t.getTname());
@@ -102,6 +127,8 @@ public class detailedTaskAction extends ActionSupport implements
 			} else {
 				json.put("message", "\"no such task\"");
 			}
+			
+			/**发送json数据**/
 			byte[] jsonBytes = json.toString().getBytes("utf-8");
 			response.setContentLength(jsonBytes.length);
 			response.getOutputStream().write(jsonBytes);

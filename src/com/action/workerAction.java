@@ -1,16 +1,21 @@
 package com.action;
 
+/**
+ * 名称: workerAction
+ * 描述: 该类用于处理服务器端工人的处理
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.omg.CORBA.Request;
 
 import com.Dao.Task;
 import com.Dao.TaskDAO;
@@ -27,11 +32,8 @@ public class workerAction extends ActionSupport implements ServletRequestAware, 
 	private String type;
 	private String age;
 	private static WorkerDAO dao = new WorkerDAO();
-	
 	private TaskDAO tdao = new TaskDAO();
 	private List<Task> tlist;
-	
-	
 	private Worker nw;
 	private Session session = HibernateSessionFactory.getSession();
 	private Transaction tx = session.beginTransaction();
@@ -39,7 +41,12 @@ public class workerAction extends ActionSupport implements ServletRequestAware, 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	
-	
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public List<Worker> getWorkerList() {
 		return workerList;
 	}
@@ -88,14 +95,32 @@ public class workerAction extends ActionSupport implements ServletRequestAware, 
 		this.type = type;
 	}
 
-	// 工人的 增删改查
+	/**工人的增删改查**/
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param 
+	　　　 * @return workertList
+		* 获取所有的工人
+	　　　 *
+	　　　 */
 	public String list_worker() {
 		workerList = dao.findAll();
 		return SUCCESS;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String type wname
+	　　　 * @return workerList
+		* 关键字查找，不符合要求的工人从列表中删除
+	　　　 *
+	　　　 */
 	public String find_worker() {
-System.out.println(type + wname + age);		
+		
 		workerList = dao.findByType(type);
 		int j = workerList.size();
 		for(int i=0;i<j;i++){
@@ -110,8 +135,16 @@ System.out.println(type + wname + age);
 		return SUCCESS;
 	}
 
-	//方法bug在于数据库的列名使用了保留字
-	public String add_worker() {	
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param Worker nw
+	　　　 * @return workerList
+		* 写入数据库，处理增加工人的业务逻辑
+	　　　 *
+	　　　 */
+	public String add_worker() {	//方法bug在于数据库的列名使用了保留字
 		dao.save(nw);
 		tx.commit();
 		workerList = dao.findAll();
@@ -119,9 +152,21 @@ System.out.println(type + wname + age);
 		return SUCCESS;
 	}
 
-	 public String delete_worker(){
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param Worker nw
+	　　　 * @return workerList
+		* 写入数据库，处理删除工人的业务逻辑
+	　　　 *
+	　　　 */
+	public String delete_worker(){
+		
+		/**从表单获取工人ID**/
 		wid = request.getParameter("pro");
 		Worker w = dao.findById(wid);
+		
 		if(w == null){
 			workerList = dao.findAll();
 			return ERROR;
@@ -146,11 +191,11 @@ System.out.println(type + wname + age);
 		}
 	 }
 
+	/**继承自父类的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0; 
 	}
-
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		response = arg0;

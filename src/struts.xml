@@ -161,16 +161,6 @@
 			<result name="success">task_index.jsp</result>
 			<result name="error">task_error.jsp</result>
 		</action>
-		
-		<action name="action1" class="com.action.test"
-			method="action1">
-			<result name="success">index1.jsp</result>
-		</action>
-		<action name="action2" class="com.action.test"
-			method="action2">
-			<result name="success">index1.jsp</result>
-		</action>
-		
 	</package>
 	<!-- Add packages here -->
 	

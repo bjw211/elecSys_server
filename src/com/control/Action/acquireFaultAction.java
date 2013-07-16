@@ -1,5 +1,12 @@
 package com.control.Action;
 
+/**
+ * 名称: acquireFaultAction
+ * 描述: 该类用于处理客户端获取设备缺陷的请求
+ * 类型: JAVA
+ * @author 李昌健
+ */
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +40,13 @@ public class acquireFaultAction extends ActionSupport implements
 	private List<Fault> flist;
 	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+		* 变量的set get群
+	　　　 *
+	　　　 */
 	public String getDid() {
 		return did;
 	}
@@ -49,6 +63,7 @@ public class acquireFaultAction extends ActionSupport implements
 		this.time = time;
 	}
 
+	/**从父类继承的方法需要实现**/
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		request = arg0;
@@ -59,12 +74,23 @@ public class acquireFaultAction extends ActionSupport implements
 		response = arg0;
 	}
 
+
+	  /**
+	　　　 * 方法描述
+	　　　 * 
+	　　　 * @param String did
+	　　　 * @return json
+		* 服务器返回给andriod设备的缺陷信息
+	　　　 *
+	　　　 */
 	public void getFault() {
 		try {
 			this.response.setContentType("text/json;charset=utf-8");
 			this.response.setCharacterEncoding("UTF-8");
 
 			System.out.println(did);
+			
+			/**设备不存在**/
 			if (did == null) {
 				result.put("message", "\"no such device\"");
 			} else {
@@ -79,10 +105,12 @@ public class acquireFaultAction extends ActionSupport implements
 						i++;
 					}
 				}
-
+				
+				/**设备没有缺陷**/
 				if (flist.size() <= 0) {
 					result.put("message", "\"no such device\"");
 				} else {
+					/**时间不为空**/
 					if (time != null) {
 						Fault f;
 						for (int i = 0; i < flist.size(); i++) {
@@ -91,7 +119,7 @@ public class acquireFaultAction extends ActionSupport implements
 							if (f.getTime().after(time)
 									&& f.getSolved().equals("否")) {
 								json.put("fid", Integer.toString(f.getFid()));
-								json.put("content", f.getContent());
+								json.put("content", "\""+f.getContent()+"\"");
 								json.put("time", df.format(f.getTime()));
 								list.add(json);
 							}
@@ -105,7 +133,7 @@ public class acquireFaultAction extends ActionSupport implements
 							f = flist.get(i);
 							if (f.getSolved().equals("否")) {
 								json.put("fid", Integer.toString(f.getFid()));
-								json.put("content", f.getContent());
+								json.put("content", "\""+f.getContent()+"\"");
 								json.put("time", df.format(f.getTime()));
 								list.add(json);
 							}
@@ -115,6 +143,7 @@ public class acquireFaultAction extends ActionSupport implements
 					}
 				}
 			}
+			/**发送json数据**/
 			byte[] jsonBytes = result.toString().getBytes("utf-8");
 			response.setContentLength(jsonBytes.length);
 			response.getOutputStream().write(jsonBytes);
