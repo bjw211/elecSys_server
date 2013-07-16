@@ -69,7 +69,7 @@ body {
 									</td>
 								</tr>
 								<tr bgcolor=#99CC33 class="text">
-									<td valign="top" align="center">
+									<td valign="top" align="center" width="5%">
 										选中
 									</td>
 									<td valign="top" align="center">

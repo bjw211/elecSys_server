@@ -87,7 +87,7 @@ public class taskFinishAction extends ActionSupport implements
 			this.response.setCharacterEncoding("UTF-8");
 
 			request.getParameter("tid");
-
+System.out.println(tid + "fuck"+"\n");
 			Task t = tdao.findById(tid);
 			if (t == null) {
 				result = "\"no such task\"";
@@ -101,13 +101,15 @@ public class taskFinishAction extends ActionSupport implements
 					if(rlist.get(i).getId().getTid().equals(tid)){
 						c++;
 					}
-				}			
+				}
+System.out.println(c + "fuck" +count + "\n");				
 				if (c == count) {
 					result = "success";
 					
 					Date d = new Date();
 					t.setState("DONE");
-					t.setEtime(d);					
+					t.setEtime(d);			
+					
 					json.put("etime", df.format(d).toString());
 					
 					tdao.merge(t);
