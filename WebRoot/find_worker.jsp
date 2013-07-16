@@ -36,7 +36,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								工人列表
+								查询工人
 							</div>
 						</td>
 					</tr>

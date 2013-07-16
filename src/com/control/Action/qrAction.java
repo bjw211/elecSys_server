@@ -81,7 +81,7 @@ public class qrAction extends ActionSupport implements ServletRequestAware, Serv
 			
 			/**获取信息**/
 			did = request.getParameter("did");
-			QRcode = request.getParameter("QRcode");
+			QRcode = request.getParameter("qr");
 			
 			Device d= dao.findById(did);
 			if(did == null){

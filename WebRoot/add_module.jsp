@@ -50,7 +50,7 @@ body {
 					<tr>
 						<td height="31">
 							<div class="titlebt">
-								新建任务
+								新建模板
 							</div>
 						</td>
 					</tr>
