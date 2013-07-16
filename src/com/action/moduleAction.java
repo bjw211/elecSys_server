@@ -196,7 +196,7 @@ public class moduleAction extends ActionSupport implements ServletResponseAware,
 			nt.setDeadline(deadline);
 			nt.setStime(stime);
 			
-			nmid = ldao.findById("001").getValue();
+			nmid = request.getParameter("pro");
 			dec = dao.findById(nmid).getDevices();
 			nt.setDevices(dao.findById(nmid).getDevices());
 			
