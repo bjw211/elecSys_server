@@ -116,7 +116,7 @@ public class acquireFaultAction extends ActionSupport implements
 						for (int i = 0; i < flist.size(); i++) {
 							Map<String, String> json = new HashMap<String, String>();
 							f = flist.get(i);
-							if (f.getTime().after(time)
+							if ((f.getTime().equals(time)||f.getTime().after(time))
 									&& f.getSolved().equals("·ñ")) {
 								json.put("fid", Integer.toString(f.getFid()));
 								json.put("content", "\""+f.getContent()+"\"");
